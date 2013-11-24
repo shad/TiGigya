@@ -94,7 +94,33 @@
 }
 
 -(void)loginToProvider:(id)args {
+    ENSURE_UI_THREAD_1_ARG(args)
+
+    NSDictionary * dict;
+    ENSURE_ARG_AT_INDEX(dict, args, 0, NSDictionary)
     
+    NSString * provider = [dict objectForKey:@"name"];
+    if (!provider) {
+        NSLog(@"[ERROR] missing provider name in loginToProvider");
+        return;
+    }
+    
+    NSLog(@"[INFO] logging in to %@", provider);
+    
+    KrollCallback * success = [dict objectForKey:@"success"];
+    KrollCallback * failure = [dict objectForKey:@"failure"];
+
+    [Gigya loginToProvider:provider parameters:dict completionHandler:^(GSUser *user, NSError *error) {
+        NSLog(@"[INFO] completion: user=%@, error=%@", user, error);
+        if (!error) {
+            NSDictionary * params = @{ @"user": [GSUserProxy proxyWithGSUser:user]};
+            [success call:@[params] thisObject:nil];
+        }
+        else {
+            NSDictionary * params = @{ @"code": [NSNumber numberWithInteger:error.code], @"error": error.description };
+            [failure call:@[params] thisObject:nil];
+        }
+     }];
 }
 
 -(void)logout:(id)args {

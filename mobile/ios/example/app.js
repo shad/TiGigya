@@ -34,6 +34,24 @@ showLoginProvidersButton.addEventListener('click', function(e) {
 });
 win.add(showLoginProvidersButton);
 
+var loginToProviderButton = Ti.UI.createButton({
+  title: 'Login to Google'
+});
+loginToProviderButton.addEventListener('click', function(e) {
+  module.loginToProvider({
+    name: 'google',
+    success: function(e) {
+      label.text = 'logged in as ' + e.user.firstName + ' ' + e.user.lastName;
+      Ti.API.info("success: showLoginProvidersDialog: "+JSON.stringify(e));
+    },
+    failure: function(e) {
+      label.text = 'login failure: ' + e.error;
+      Ti.API.info("failure: showLoginProvidersDialog: "+JSON.stringify(e));
+    }
+  })
+});
+win.add(loginToProviderButton);
+
 win.addEventListener('open', function(e) {
   if (module.session.isValid) {
     showLoginProvidersButton.enabled = false;
@@ -42,17 +60,6 @@ win.addEventListener('open', function(e) {
 });
 
 /*
-
-module.loginToProvider({
-  name: 'facebook',
-  success: function(e) {
-    Ti.API.info("success: loginToProvider");
-  },
-  failure: function(e) {
-    Ti.API.info("failure: loginToProvider");
-  }
-});
-
 // there are popover versions of these for iPad, maybe postpone?
 
 module.logout({
