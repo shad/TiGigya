@@ -34,6 +34,10 @@
 		DA150E80183E893B00D2CCD0 /* GSSessionDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = DA150E79183E893B00D2CCD0 /* GSSessionDelegate.h */; };
 		DA150E81183E893B00D2CCD0 /* GSUser.h in Headers */ = {isa = PBXBuildFile; fileRef = DA150E7A183E893B00D2CCD0 /* GSUser.h */; };
 		DA150E83183E8DA900D2CCD0 /* libGigyaSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DA150E82183E8DA900D2CCD0 /* libGigyaSDK.a */; };
+		DA65D2A8183FB9300097D35D /* GSUserProxy.h in Headers */ = {isa = PBXBuildFile; fileRef = DA65D2A6183FB9300097D35D /* GSUserProxy.h */; };
+		DA65D2A9183FB9300097D35D /* GSUserProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = DA65D2A7183FB9300097D35D /* GSUserProxy.m */; };
+		DA65D2AC183FCE290097D35D /* GSSessionProxy.h in Headers */ = {isa = PBXBuildFile; fileRef = DA65D2AA183FCE290097D35D /* GSSessionProxy.h */; };
+		DA65D2AD183FCE290097D35D /* GSSessionProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = DA65D2AB183FCE290097D35D /* GSSessionProxy.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -61,6 +65,10 @@
 		DA150E79183E893B00D2CCD0 /* GSSessionDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GSSessionDelegate.h; sourceTree = "<group>"; };
 		DA150E7A183E893B00D2CCD0 /* GSUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GSUser.h; sourceTree = "<group>"; };
 		DA150E82183E8DA900D2CCD0 /* libGigyaSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libGigyaSDK.a; path = lib/libGigyaSDK.a; sourceTree = "<group>"; };
+		DA65D2A6183FB9300097D35D /* GSUserProxy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GSUserProxy.h; path = Classes/GSUserProxy.h; sourceTree = "<group>"; };
+		DA65D2A7183FB9300097D35D /* GSUserProxy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GSUserProxy.m; path = Classes/GSUserProxy.m; sourceTree = "<group>"; };
+		DA65D2AA183FCE290097D35D /* GSSessionProxy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GSSessionProxy.h; path = Classes/GSSessionProxy.h; sourceTree = "<group>"; };
+		DA65D2AB183FCE290097D35D /* GSSessionProxy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GSSessionProxy.m; path = Classes/GSSessionProxy.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -110,6 +118,10 @@
 			children = (
 				24DD6CF71134B3F500162E58 /* ComAppersonlabsGigyaModule.h */,
 				24DD6CF81134B3F500162E58 /* ComAppersonlabsGigyaModule.m */,
+				DA65D2A6183FB9300097D35D /* GSUserProxy.h */,
+				DA65D2A7183FB9300097D35D /* GSUserProxy.m */,
+				DA65D2AA183FCE290097D35D /* GSSessionProxy.h */,
+				DA65D2AB183FCE290097D35D /* GSSessionProxy.m */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -144,7 +156,9 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DA65D2A8183FB9300097D35D /* GSUserProxy.h in Headers */,
 				DA150E81183E893B00D2CCD0 /* GSUser.h in Headers */,
+				DA65D2AC183FCE290097D35D /* GSSessionProxy.h in Headers */,
 				DA150E7B183E893B00D2CCD0 /* Gigya.h in Headers */,
 				DA150E7C183E893B00D2CCD0 /* GSObject.h in Headers */,
 				DA150E80183E893B00D2CCD0 /* GSSessionDelegate.h in Headers */,
@@ -225,7 +239,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DA65D2AD183FCE290097D35D /* GSSessionProxy.m in Sources */,
 				24DD6CFA1134B3F500162E58 /* ComAppersonlabsGigyaModule.m in Sources */,
+				DA65D2A9183FB9300097D35D /* GSUserProxy.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -8,8 +8,12 @@
 #import "TiBase.h"
 #import "TiHost.h"
 #import "TiUtils.h"
+#import "TiApp.h"
 
 #import "Gigya.h"
+
+#import "GSUserProxy.h"
+#import "GSSessionProxy.h"
 
 @implementation ComAppersonlabsGigyaModule
 
@@ -45,15 +49,48 @@
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         [Gigya initWithAPIKey:arg];
+        NSLog(@"[INFO] initialized Gigya");
     });
 }
 
+- (id)session {
+    NSLog(@"[INFO] session: %@",[Gigya session]);
+    return [GSSessionProxy proxyWithGSSession:[Gigya session]];
+}
+
 -(void)showLoginProvidersDialog:(id)args {
+    ENSURE_UI_THREAD_1_ARG(args)
+    
     NSDictionary * dict;
     
     ENSURE_ARG_AT_INDEX(dict, args, 0, NSDictionary)
+
+    NSArray * providers = [dict objectForKey:@"providers"];
+    if (![providers isKindOfClass:[NSArray class]]) {
+        providers = nil;
+    }
     
-    NSLog(@"[INFO] showLoginProvidersDialog: %@", dict);
+    KrollCallback * success = [dict objectForKey:@"success"];
+    KrollCallback * failure = [dict objectForKey:@"failure"];
+    
+    UIViewController * topController = [[[TiApp app] controller] topContainerController];
+    if (topController) {
+        [Gigya showLoginProvidersDialogOver:topController
+                                  providers:providers
+                                 parameters:dict
+                          completionHandler:^(GSUser * user, NSError * error) {
+                              NSLog(@"[INFO] completion: user=%@, error=%@", user, error);
+                              if (!error) {
+                                  NSDictionary * params = @{ @"user": [GSUserProxy proxyWithGSUser:user]};
+                                  [success call:@[params] thisObject:nil];
+                              }
+                              else {
+                                  NSDictionary * params = @{ @"code": [NSNumber numberWithInteger:error.code], @"error": error.description };
+                                  [failure call:@[params] thisObject:nil];
+                              }
+                          }
+         ];
+    }
 }
 
 -(void)loginToProvider:(id)args {

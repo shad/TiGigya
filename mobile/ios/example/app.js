@@ -1,9 +1,11 @@
 var win = Ti.UI.createWindow({
-	backgroundColor:'white'
+	backgroundColor:'white',
+  layout: 'vertical',
 });
-var label = Ti.UI.createLabel();
+var label = Ti.UI.createLabel({
+  top: 20
+});
 win.add(label);
-win.open();
 
 var module = require('com.appersonlabs.gigya');
 Ti.API.info("module is => " + module);
@@ -14,14 +16,28 @@ module.APIKey = '3_prG9bc47yYdLvDyytRV5rOl3Hp2SOxEJvoBnVg84Vy2lMQ8qIAftpyplXxtfq
 
 // AUTHENTICATION
 
+var showLoginProvidersButton = Ti.UI.createButton({
+  title: 'Show Login Providers'
+});
+showLoginProvidersButton.addEventListener('click', function(e) {
+  module.showLoginProvidersDialog({
+/*    providers: ['facebook', 'google'], */
+    success: function(e) {
+      label.text = 'logged in as ' + e.user.firstName + ' ' + e.user.lastName;
+      Ti.API.info("success: showLoginProvidersDialog: "+JSON.stringify(e));
+    },
+    failure: function(e) {
+      label.text = 'login failure: ' + e.error;
+      Ti.API.info("failure: showLoginProvidersDialog: "+JSON.stringify(e));
+    }
+  });
+});
+win.add(showLoginProvidersButton);
 
-module.showLoginProvidersDialog({
-  providers: ['facebook', 'google'],
-  success: function(e) {
-    Ti.API.info("success: showLoginProvidersDialog");
-  },
-  failure: function(e) {
-    Ti.API.info("failure: showLoginProvidersDialog");
+win.addEventListener('open', function(e) {
+  if (module.session.isValid) {
+    showLoginProvidersButton.enabled = false;
+    label.text = String.format('Current session: %s (%s)', module.session.token, module.session.lastLoginProvider);
   }
 });
 
@@ -71,3 +87,5 @@ req.send({
 });
 
 */
+
+win.open();
