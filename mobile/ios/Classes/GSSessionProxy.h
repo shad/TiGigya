@@ -14,4 +14,6 @@
 
 + (instancetype)proxyWithGSSession:(GSSession *)session;
 
++ (NSDictionary *)dictionaryWithGSSession:(GSSession *)session;
+
 @end

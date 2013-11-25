@@ -16,8 +16,21 @@
 @implementation GSSessionProxy
 
 + (instancetype)proxyWithGSSession:(GSSession *)session {
-    return session ? [[self alloc] initWithGSSession:session] : nil;
+    return session ? [[[self alloc] initWithGSSession:session] autorelease] : [NSNull null];
 }
+
++ (NSDictionary *)dictionaryWithGSSession:(GSSession *)session {
+    if (!session) return nil;
+    
+    return @{
+             @"token": session.token,
+             @"secret": session.secret,
+             @"expiration": session.expiration,
+             @"lastLoginProvider": session.lastLoginProvider,
+             @"isValid": NUMBOOL(session.isValid)
+             };
+}
+
 
 - (instancetype)initWithGSSession:(GSSession *)session {
     if (self = [super init]) {

@@ -1,6 +1,6 @@
 var win = Ti.UI.createWindow({
 	backgroundColor:'white',
-  layout: 'vertical',
+  layout: 'vertical'
 });
 var label = Ti.UI.createLabel({
   top: 20
@@ -50,7 +50,7 @@ loginToProviderButton.addEventListener('click', function(e) {
       label.text = 'login failure: ' + e.error;
       Ti.API.info("failure: showLoginProvidersDialog: "+JSON.stringify(e));
     }
-  })
+  });
 });
 win.add(loginToProviderButton);
 
@@ -67,7 +67,7 @@ logoutButton.addEventListener('click', function(e) {
     failure: function(e) {
       label.text = 'logout failure: ' + JSON.stringify(e);
     }
-  })
+  });
 });
 win.add(logoutButton);
 
@@ -76,7 +76,7 @@ var sessionButton = Ti.UI.createButton({
 });
 sessionButton.addEventListener('click', function(e) {
   var session = module.session;
-  label.text = session != null ? "token="+session.token+"; isValid="+session.isValid : "null";
+  label.text = session ? "token="+session.token+"; isValid="+session.isValid : "null";
 });
 win.add(sessionButton);
 
@@ -102,32 +102,42 @@ addConnectionProvidersButton.addEventListener('click', function(e) {
 win.add(addConnectionProvidersButton);
 
 
-/*
-
 // REQUESTS
 
-var req = module.requestForMethod("socialize.getFriendsInfo", {
-  detailLevel: "extended"
+var sendGetFriendsInfoRequestButton = Ti.UI.createButton({
+  title: 'Get Friends Info'
 });
-req.send({
-  success: function(e) {
-    // "response" is a JS object
-    var friends = e.response.friends;
-  },
-  failure: function(e) {}
+sendGetFriendsInfoRequestButton.addEventListener('click', function(e) {
+  var req = module.requestForMethod("socialize.getFriendsInfo");
+  
+  // non-blocking call
+  req.sendAsync({
+    success: function(e) {
+      label.text = JSON.stringify(e);
+    },
+    failure: function(e) {
+      label.text = JSON.stringify(e);
+    }
+  });
+  
+  /*
+  // blocking call
+  var resp = req.sendSync();
+  Ti.API.info(JSON.stringify(resp));
+  */
 });
-
-*/
+win.add(sendGetFriendsInfoRequestButton);
 
 // AUTH EVENTS
 
-// these are optional but set up the UI to show logged in/out state
+// These are optional. I use them to set up the UI to show logged in/out state.
 
 function updateUI(loggedIn) {
   showLoginProvidersButton.enabled = !loggedIn;
-  loginToProviderButton.enabled = !loggedIn
+  loginToProviderButton.enabled = !loggedIn;
   logoutButton.enabled = loggedIn;
   addConnectionProvidersButton.enabled = loggedIn;
+  sendGetFriendsInfoRequestButton.enabled = loggedIn;
 }
 
 module.addEventListener('login', function(e) {

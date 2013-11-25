@@ -36,10 +36,14 @@
 		DA150E83183E8DA900D2CCD0 /* libGigyaSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DA150E82183E8DA900D2CCD0 /* libGigyaSDK.a */; };
 		DA39CB811842FBE600F64FF9 /* TiApp+HandleOpenURL.h in Headers */ = {isa = PBXBuildFile; fileRef = DA39CB7F1842FBE600F64FF9 /* TiApp+HandleOpenURL.h */; };
 		DA39CB821842FBE600F64FF9 /* TiApp+HandleOpenURL.m in Sources */ = {isa = PBXBuildFile; fileRef = DA39CB801842FBE600F64FF9 /* TiApp+HandleOpenURL.m */; };
-		DA65D2A8183FB9300097D35D /* GSUserProxy.h in Headers */ = {isa = PBXBuildFile; fileRef = DA65D2A6183FB9300097D35D /* GSUserProxy.h */; };
-		DA65D2A9183FB9300097D35D /* GSUserProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = DA65D2A7183FB9300097D35D /* GSUserProxy.m */; };
-		DA65D2AC183FCE290097D35D /* GSSessionProxy.h in Headers */ = {isa = PBXBuildFile; fileRef = DA65D2AA183FCE290097D35D /* GSSessionProxy.h */; };
-		DA65D2AD183FCE290097D35D /* GSSessionProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = DA65D2AB183FCE290097D35D /* GSSessionProxy.m */; };
+		DAD4F4481843B8D9004F1A7C /* GSRequestProxy.h in Headers */ = {isa = PBXBuildFile; fileRef = DAD4F4461843B8D9004F1A7C /* GSRequestProxy.h */; };
+		DAD4F4491843B8D9004F1A7C /* GSRequestProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = DAD4F4471843B8D9004F1A7C /* GSRequestProxy.m */; };
+		DAD4F44C1843BB80004F1A7C /* GSResponseProxy.h in Headers */ = {isa = PBXBuildFile; fileRef = DAD4F44A1843BB80004F1A7C /* GSResponseProxy.h */; };
+		DAD4F44D1843BB80004F1A7C /* GSResponseProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = DAD4F44B1843BB80004F1A7C /* GSResponseProxy.m */; };
+		DAD4F4521843DA74004F1A7C /* GSSessionProxy.h in Headers */ = {isa = PBXBuildFile; fileRef = DAD4F44E1843DA74004F1A7C /* GSSessionProxy.h */; };
+		DAD4F4531843DA74004F1A7C /* GSSessionProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = DAD4F44F1843DA74004F1A7C /* GSSessionProxy.m */; };
+		DAD4F4541843DA74004F1A7C /* GSUserProxy.h in Headers */ = {isa = PBXBuildFile; fileRef = DAD4F4501843DA74004F1A7C /* GSUserProxy.h */; };
+		DAD4F4551843DA74004F1A7C /* GSUserProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = DAD4F4511843DA74004F1A7C /* GSUserProxy.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -69,10 +73,14 @@
 		DA150E82183E8DA900D2CCD0 /* libGigyaSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libGigyaSDK.a; path = lib/libGigyaSDK.a; sourceTree = "<group>"; };
 		DA39CB7F1842FBE600F64FF9 /* TiApp+HandleOpenURL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "TiApp+HandleOpenURL.h"; path = "Classes/TiApp+HandleOpenURL.h"; sourceTree = "<group>"; };
 		DA39CB801842FBE600F64FF9 /* TiApp+HandleOpenURL.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "TiApp+HandleOpenURL.m"; path = "Classes/TiApp+HandleOpenURL.m"; sourceTree = "<group>"; };
-		DA65D2A6183FB9300097D35D /* GSUserProxy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GSUserProxy.h; path = Classes/GSUserProxy.h; sourceTree = "<group>"; };
-		DA65D2A7183FB9300097D35D /* GSUserProxy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GSUserProxy.m; path = Classes/GSUserProxy.m; sourceTree = "<group>"; };
-		DA65D2AA183FCE290097D35D /* GSSessionProxy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GSSessionProxy.h; path = Classes/GSSessionProxy.h; sourceTree = "<group>"; };
-		DA65D2AB183FCE290097D35D /* GSSessionProxy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GSSessionProxy.m; path = Classes/GSSessionProxy.m; sourceTree = "<group>"; };
+		DAD4F4461843B8D9004F1A7C /* GSRequestProxy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GSRequestProxy.h; path = Classes/GSRequestProxy.h; sourceTree = "<group>"; };
+		DAD4F4471843B8D9004F1A7C /* GSRequestProxy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GSRequestProxy.m; path = Classes/GSRequestProxy.m; sourceTree = "<group>"; };
+		DAD4F44A1843BB80004F1A7C /* GSResponseProxy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GSResponseProxy.h; path = Classes/GSResponseProxy.h; sourceTree = "<group>"; };
+		DAD4F44B1843BB80004F1A7C /* GSResponseProxy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GSResponseProxy.m; path = Classes/GSResponseProxy.m; sourceTree = "<group>"; };
+		DAD4F44E1843DA74004F1A7C /* GSSessionProxy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GSSessionProxy.h; path = Classes/GSSessionProxy.h; sourceTree = "<group>"; };
+		DAD4F44F1843DA74004F1A7C /* GSSessionProxy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GSSessionProxy.m; path = Classes/GSSessionProxy.m; sourceTree = "<group>"; };
+		DAD4F4501843DA74004F1A7C /* GSUserProxy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GSUserProxy.h; path = Classes/GSUserProxy.h; sourceTree = "<group>"; };
+		DAD4F4511843DA74004F1A7C /* GSUserProxy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GSUserProxy.m; path = Classes/GSUserProxy.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -122,10 +130,14 @@
 			children = (
 				24DD6CF71134B3F500162E58 /* ComAppersonlabsGigyaModule.h */,
 				24DD6CF81134B3F500162E58 /* ComAppersonlabsGigyaModule.m */,
-				DA65D2A6183FB9300097D35D /* GSUserProxy.h */,
-				DA65D2A7183FB9300097D35D /* GSUserProxy.m */,
-				DA65D2AA183FCE290097D35D /* GSSessionProxy.h */,
-				DA65D2AB183FCE290097D35D /* GSSessionProxy.m */,
+				DAD4F44E1843DA74004F1A7C /* GSSessionProxy.h */,
+				DAD4F44F1843DA74004F1A7C /* GSSessionProxy.m */,
+				DAD4F4501843DA74004F1A7C /* GSUserProxy.h */,
+				DAD4F4511843DA74004F1A7C /* GSUserProxy.m */,
+				DAD4F4461843B8D9004F1A7C /* GSRequestProxy.h */,
+				DAD4F4471843B8D9004F1A7C /* GSRequestProxy.m */,
+				DAD4F44A1843BB80004F1A7C /* GSResponseProxy.h */,
+				DAD4F44B1843BB80004F1A7C /* GSResponseProxy.m */,
 				DA39CB7F1842FBE600F64FF9 /* TiApp+HandleOpenURL.h */,
 				DA39CB801842FBE600F64FF9 /* TiApp+HandleOpenURL.m */,
 			);
@@ -162,18 +174,20 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DA65D2A8183FB9300097D35D /* GSUserProxy.h in Headers */,
+				DAD4F44C1843BB80004F1A7C /* GSResponseProxy.h in Headers */,
 				DA150E81183E893B00D2CCD0 /* GSUser.h in Headers */,
-				DA65D2AC183FCE290097D35D /* GSSessionProxy.h in Headers */,
 				DA150E7B183E893B00D2CCD0 /* Gigya.h in Headers */,
+				DAD4F4521843DA74004F1A7C /* GSSessionProxy.h in Headers */,
 				DA150E7C183E893B00D2CCD0 /* GSObject.h in Headers */,
 				DA150E80183E893B00D2CCD0 /* GSSessionDelegate.h in Headers */,
+				DAD4F4541843DA74004F1A7C /* GSUserProxy.h in Headers */,
 				DA150E7F183E893B00D2CCD0 /* GSSession.h in Headers */,
 				AA747D9F0F9514B9006C5449 /* ComAppersonlabsGigya_Prefix.pch in Headers */,
 				DA150E7E183E893B00D2CCD0 /* GSResponse.h in Headers */,
 				DA39CB811842FBE600F64FF9 /* TiApp+HandleOpenURL.h in Headers */,
 				DA150E7D183E893B00D2CCD0 /* GSRequest.h in Headers */,
 				24DD6CF91134B3F500162E58 /* ComAppersonlabsGigyaModule.h in Headers */,
+				DAD4F4481843B8D9004F1A7C /* GSRequestProxy.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -246,10 +260,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DA65D2AD183FCE290097D35D /* GSSessionProxy.m in Sources */,
+				DAD4F4491843B8D9004F1A7C /* GSRequestProxy.m in Sources */,
 				24DD6CFA1134B3F500162E58 /* ComAppersonlabsGigyaModule.m in Sources */,
+				DAD4F4531843DA74004F1A7C /* GSSessionProxy.m in Sources */,
 				DA39CB821842FBE600F64FF9 /* TiApp+HandleOpenURL.m in Sources */,
-				DA65D2A9183FB9300097D35D /* GSUserProxy.m in Sources */,
+				DAD4F44D1843BB80004F1A7C /* GSResponseProxy.m in Sources */,
+				DAD4F4551843DA74004F1A7C /* GSUserProxy.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

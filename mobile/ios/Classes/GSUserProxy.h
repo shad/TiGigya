@@ -14,4 +14,6 @@
 
 + (instancetype)proxyWithGSUser:(GSUser *)user;
 
++ (NSDictionary *)dictionaryWithGSUser:(GSUser *)user;
+
 @end

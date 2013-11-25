@@ -14,6 +14,7 @@
 
 #import "GSUserProxy.h"
 #import "GSSessionProxy.h"
+#import "GSRequestProxy.h"
 
 @implementation ComAppersonlabsGigyaModule
 
@@ -43,7 +44,7 @@
 #pragma mark GSSessionDelegate
 
 - (void)userDidLogin:(id)user {
-    [self fireEvent:@"login" withObject:@{@"user":[GSUserProxy proxyWithGSUser:user]}];
+    [self fireEvent:@"login" withObject:@{@"user":[GSUserProxy dictionaryWithGSUser:user]}];
 }
 
 - (void)userDidLogout {
@@ -51,7 +52,7 @@
 }
 
 - (void)userInfoDidChange:(id)user {
-    [self fireEvent:@"change" withObject:@{@"user":[GSUserProxy proxyWithGSUser:user]}];
+    [self fireEvent:@"change" withObject:@{@"user":[GSUserProxy dictionaryWithGSUser:user]}];
 }
 
 #pragma mark -
@@ -97,7 +98,7 @@
                                  parameters:dict
                           completionHandler:^(GSUser * user, NSError * error) {
                               if (!error) {
-                                  NSDictionary * params = @{ @"user": [GSUserProxy proxyWithGSUser:user]};
+                                  NSDictionary * params = @{ @"user": [GSUserProxy dictionaryWithGSUser:user]};
                                   [success call:@[params] thisObject:nil];
                               }
                               else {
@@ -126,7 +127,7 @@
 
     [Gigya loginToProvider:provider parameters:dict completionHandler:^(GSUser *user, NSError *error) {
         if (!error) {
-            NSDictionary * params = @{ @"user": [GSUserProxy proxyWithGSUser:user]};
+            NSDictionary * params = @{ @"user": [GSUserProxy dictionaryWithGSUser:user]};
             [success call:@[params] thisObject:nil];
         }
         else {
@@ -180,7 +181,7 @@
                                          parameters:dict
                                   completionHandler:^(GSUser *user, NSError *error) {
                                       if (!error) {
-                                          NSDictionary * params = @{ @"user": [GSUserProxy proxyWithGSUser:user]};
+                                          NSDictionary * params = @{ @"user": [GSUserProxy dictionaryWithGSUser:user]};
                                           [success call:@[params] thisObject:nil];
                                       }
                                       else {
@@ -194,7 +195,13 @@
 #pragma mark Requests
 
 -(id)requestForMethod:(id)args {
-    return nil;
+    NSString * method;
+    NSDictionary * parameters;
+    
+    ENSURE_ARG_AT_INDEX(method, args, 0, NSString)
+    ENSURE_ARG_OR_NIL_AT_INDEX(parameters, args, 1, NSDictionary);
+    
+    return [GSRequestProxy proxyWithGSRequest:[GSRequest requestForMethod:method parameters:parameters]];
 }
 
 @end

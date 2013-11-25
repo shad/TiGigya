@@ -16,7 +16,6 @@
   sourceApplication:(NSString *)sourceApplication
          annotation:(id)annotation
 {
-    NSLog(@"[INFO] openURL");
     return [Gigya handleOpenURL:url
               sourceApplication:sourceApplication
                      annotation:annotation];
