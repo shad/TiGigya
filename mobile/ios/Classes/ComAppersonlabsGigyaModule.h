@@ -5,8 +5,9 @@
  * and licensed under the Apache Public License (version 2)
  */
 #import "TiModule.h"
+#import "Gigya.h"
 
-@interface ComAppersonlabsGigyaModule : TiModule 
+@interface ComAppersonlabsGigyaModule : TiModule <GSSessionDelegate>
 {
 }
 

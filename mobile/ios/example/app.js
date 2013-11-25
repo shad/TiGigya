@@ -20,6 +20,7 @@ var showLoginProvidersButton = Ti.UI.createButton({
   title: 'Show Login Providers'
 });
 showLoginProvidersButton.addEventListener('click', function(e) {
+  label.text = '';
   module.showLoginProvidersDialog({
 /*    providers: ['facebook', 'google'], */
     success: function(e) {
@@ -38,6 +39,7 @@ var loginToProviderButton = Ti.UI.createButton({
   title: 'Login to Google'
 });
 loginToProviderButton.addEventListener('click', function(e) {
+  label.text = '';
   module.loginToProvider({
     name: 'google',
     success: function(e) {
@@ -52,33 +54,55 @@ loginToProviderButton.addEventListener('click', function(e) {
 });
 win.add(loginToProviderButton);
 
-win.addEventListener('open', function(e) {
-  if (module.session.isValid) {
-    showLoginProvidersButton.enabled = false;
-    label.text = String.format('Current session: %s (%s)', module.session.token, module.session.lastLoginProvider);
-  }
-});
 
-/*
-// there are popover versions of these for iPad, maybe postpone?
-
-module.logout({
-  success: function(e) {
-    Ti.API.info("success: logout");
-  },
+var logoutButton = Ti.UI.createButton({
+  title: 'Logout'
 });
+logoutButton.addEventListener('click', function(e) {
+  label.text = '';
+  module.logout({
+    success: function(e) {
+      label.text = 'logout success';
+    },
+    failure: function(e) {
+      label.text = 'logout failure: ' + JSON.stringify(e);
+    }
+  })
+});
+win.add(logoutButton);
+
+var sessionButton = Ti.UI.createButton({
+  title: 'Show Session'
+});
+sessionButton.addEventListener('click', function(e) {
+  var session = module.session;
+  label.text = session != null ? "token="+session.token+"; isValid="+session.isValid : "null";
+});
+win.add(sessionButton);
+
 
 // CONNNECTIONS
 
-module.showAddConnectionProvidersDialog({
-  providers: ['facebook', 'twitter'],
-  success: function(e) {
-    Ti.API.info("success: showAddConnectionProvidersDialog");
-  },
-  failure: function(e) {
-    Ti.API.info("failure: showAddConnectionProvidersDialog");
+var addConnectionProvidersButton = Ti.UI.createButton({
+  title: 'Add Connection Providers'
+});
+addConnectionProvidersButton.addEventListener('click', function(e) {
+  if (module.session && module.session.isValid) {
+    module.showAddConnectionProvidersDialog({
+      providers: ['facebook', 'twitter'],
+      success: function(e) {
+        label.text = "added connection provider: "+JSON.stringify(e);
+      },
+      failure: function(e) {
+        label.text = "failed to add connection provider: "+JSON.stringify(e);
+      }
+    });
   }
 });
+win.add(addConnectionProvidersButton);
+
+
+/*
 
 // REQUESTS
 
@@ -94,5 +118,31 @@ req.send({
 });
 
 */
+
+// AUTH EVENTS
+
+// these are optional but set up the UI to show logged in/out state
+
+function updateUI(loggedIn) {
+  showLoginProvidersButton.enabled = !loggedIn;
+  loginToProviderButton.enabled = !loggedIn
+  logoutButton.enabled = loggedIn;
+  addConnectionProvidersButton.enabled = loggedIn;
+}
+
+module.addEventListener('login', function(e) {
+  if (e.user) {
+    updateUI(true);
+  }
+});
+
+module.addEventListener('logout', function(e) {
+  updateUI(false);
+});
+
+win.addEventListener('open', function(e) {
+  var session = module.session;
+  updateUI(session && session.isValid);
+});
 
 win.open();

@@ -16,7 +16,7 @@
 @implementation GSUserProxy
 
 + (instancetype)proxyWithGSUser:(GSUser *)user {
-    return [[self alloc] initWithGSUser:user];
+    return user ? [[self alloc] initWithGSUser:user] : nil;
 }
 
 - (instancetype)initWithGSUser:(GSUser *)user {

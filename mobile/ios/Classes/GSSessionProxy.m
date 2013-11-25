@@ -16,7 +16,7 @@
 @implementation GSSessionProxy
 
 + (instancetype)proxyWithGSSession:(GSSession *)session {
-    return [[self alloc] initWithGSSession:session];
+    return session ? [[self alloc] initWithGSSession:session] : nil;
 }
 
 - (instancetype)initWithGSSession:(GSSession *)session {

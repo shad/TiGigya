@@ -40,6 +40,21 @@
 }
 
 #pragma mark -
+#pragma mark GSSessionDelegate
+
+- (void)userDidLogin:(id)user {
+    [self fireEvent:@"login" withObject:@{@"user":[GSUserProxy proxyWithGSUser:user]}];
+}
+
+- (void)userDidLogout {
+    [self fireEvent:@"logout"];
+}
+
+- (void)userInfoDidChange:(id)user {
+    [self fireEvent:@"change" withObject:@{@"user":[GSUserProxy proxyWithGSUser:user]}];
+}
+
+#pragma mark -
 #pragma mark Authentication
 
 -(void)setAPIKey:(id)arg {
@@ -48,13 +63,15 @@
     // Gigya docs say to only call this once
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        [Gigya initWithAPIKey:arg];
-        NSLog(@"[INFO] initialized Gigya");
+        TiThreadPerformOnMainThread(^{
+            [Gigya initWithAPIKey:arg];
+            [Gigya setSessionDelegate:self];
+            NSLog(@"[INFO] initialized Gigya");
+        }, YES);
     });
 }
 
 - (id)session {
-    NSLog(@"[INFO] session: %@",[Gigya session]);
     return [GSSessionProxy proxyWithGSSession:[Gigya session]];
 }
 
@@ -79,7 +96,6 @@
                                   providers:providers
                                  parameters:dict
                           completionHandler:^(GSUser * user, NSError * error) {
-                              NSLog(@"[INFO] completion: user=%@, error=%@", user, error);
                               if (!error) {
                                   NSDictionary * params = @{ @"user": [GSUserProxy proxyWithGSUser:user]};
                                   [success call:@[params] thisObject:nil];
@@ -95,7 +111,7 @@
 
 -(void)loginToProvider:(id)args {
     ENSURE_UI_THREAD_1_ARG(args)
-
+    
     NSDictionary * dict;
     ENSURE_ARG_AT_INDEX(dict, args, 0, NSDictionary)
     
@@ -105,13 +121,10 @@
         return;
     }
     
-    NSLog(@"[INFO] logging in to %@", provider);
-    
     KrollCallback * success = [dict objectForKey:@"success"];
     KrollCallback * failure = [dict objectForKey:@"failure"];
 
     [Gigya loginToProvider:provider parameters:dict completionHandler:^(GSUser *user, NSError *error) {
-        NSLog(@"[INFO] completion: user=%@, error=%@", user, error);
         if (!error) {
             NSDictionary * params = @{ @"user": [GSUserProxy proxyWithGSUser:user]};
             [success call:@[params] thisObject:nil];
@@ -124,13 +137,58 @@
 }
 
 -(void)logout:(id)args {
+    ENSURE_UI_THREAD_1_ARG(args)
     
+    NSDictionary * dict;
+    ENSURE_ARG_AT_INDEX(dict, args, 0, NSDictionary)
+    
+    KrollCallback * success = [dict objectForKey:@"success"];
+    KrollCallback * failure = [dict objectForKey:@"failure"];
+
+    [Gigya logoutWithCompletionHandler:^(GSResponse *response, NSError *error) {
+        if (!error) {
+            [success call:nil thisObject:nil];
+        }
+        else {
+            NSDictionary * params = @{ @"code": [NSNumber numberWithInteger:error.code], @"error": error.description };
+            [failure call:@[params] thisObject:nil];
+        }
+    }];
 }
 
 #pragma mark Connections
 
 -(void)showAddConnectionProvidersDialog:(id)args {
+    ENSURE_UI_THREAD_1_ARG(args)
     
+    NSDictionary * dict;
+    
+    ENSURE_ARG_AT_INDEX(dict, args, 0, NSDictionary)
+    
+    NSArray * providers = [dict objectForKey:@"providers"];
+    if (![providers isKindOfClass:[NSArray class]]) {
+        providers = nil;
+    }
+    
+    KrollCallback * success = [dict objectForKey:@"success"];
+    KrollCallback * failure = [dict objectForKey:@"failure"];
+    
+    UIViewController * topController = [[[TiApp app] controller] topContainerController];
+    if (topController) {
+        [Gigya showAddConnectionProvidersDialogOver:topController
+                                          providers:providers
+                                         parameters:dict
+                                  completionHandler:^(GSUser *user, NSError *error) {
+                                      if (!error) {
+                                          NSDictionary * params = @{ @"user": [GSUserProxy proxyWithGSUser:user]};
+                                          [success call:@[params] thisObject:nil];
+                                      }
+                                      else {
+                                          NSDictionary * params = @{ @"code": [NSNumber numberWithInteger:error.code], @"error": error.description };
+                                          [failure call:@[params] thisObject:nil];
+                                      }
+                                  }];
+    }
 }
 
 #pragma mark Requests
