@@ -22,17 +22,11 @@
 + (NSDictionary *)dictionaryWithGSUser:(GSUser *)user {
     if (!user) return nil;
     
-    return @{
-             @"UID": user.UID,
-             @"loginProvider": user.loginProvider,
-             @"nickname": user.nickname,
-             @"firstName": user.firstName,
-             @"lastName": user.lastName,
-             @"email": user.email,
-             @"identities": user.identities,
-             @"photoURL": [user.photoURL absoluteString],
-             @"thumbnailURL": [user.thumbnailURL absoluteString]
-             };
+    NSMutableDictionary * result = [NSMutableDictionary dictionary];
+    for (NSString * key in user.allKeys) {
+        [result setObject:[user objectForKey:key] forKey:key];
+    }
+    return result;
 }
 
 - (instancetype)initWithGSUser:(GSUser *)user {
