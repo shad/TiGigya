@@ -12,7 +12,7 @@ Ti.API.info("module is => " + module);
 
 // INITIALIZATION
 
-module.APIKey = '3_prG9bc47yYdLvDyytRV5rOl3Hp2SOxEJvoBnVg84Vy2lMQ8qIAftpyplXxtfqDUM';
+module.APIKey = 'your-api-key-from-gigya-here';
 
 // AUTHENTICATION
 
