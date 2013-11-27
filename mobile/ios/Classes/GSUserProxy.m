@@ -24,7 +24,11 @@
     
     NSMutableDictionary * result = [NSMutableDictionary dictionary];
     for (NSString * key in user.allKeys) {
-        [result setObject:[user objectForKey:key] forKey:key];
+        id obj = [user objectForKey:key];
+        if (!obj) {
+            obj = [NSNull null];
+        }
+        [result setObject:obj forKey:key];
     }
     return result;
 }

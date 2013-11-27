@@ -12,7 +12,7 @@ Ti.API.info("module is => " + module);
 
 // INITIALIZATION
 
-module.APIKey = 'your-api-key-from-gigya-here';
+module.APIKey = 'your-gigya-api-key-here';
 
 // AUTHENTICATION
 
@@ -35,6 +35,8 @@ showLoginProvidersButton.addEventListener('click', function(e) {
 });
 win.add(showLoginProvidersButton);
 
+var foo = Ti.Network;  
+
 var loginToProviderButton = Ti.UI.createButton({
   title: 'Login to Google'
 });
@@ -45,6 +47,19 @@ loginToProviderButton.addEventListener('click', function(e) {
     success: function(e) {
       label.text = 'logged in as ' + e.user.firstName + ' ' + e.user.lastName;
       Ti.API.info("success: showLoginProvidersDialog: "+JSON.stringify(e));
+      
+      // test HTTPClient bug
+      var client = Ti.Network.createHTTPClient({
+        onload: function(e) {
+          label.text = "HTTPClient success";
+        },
+        onerror: function(e) {
+          label.text = "HTTPClient error";
+        }
+      });
+      client.open("GET", "http://www.google.com/");
+      client.send();
+      label.text = "sent HTTP req";
     },
     failure: function(e) {
       label.text = 'login failure: ' + e.error;

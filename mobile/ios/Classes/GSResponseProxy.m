@@ -22,7 +22,11 @@
 + (NSDictionary *)dictionaryWithGSResponse:(GSResponse *)response {
     NSMutableDictionary * result = [NSMutableDictionary dictionary];
     for (NSString * key in response.allKeys) {
-        [result setObject:[response objectForKey:key] forKey:key];
+        id obj = [response objectForKey:key];
+        if (!obj) {
+            obj = [NSNull null];
+        }
+        [result setObject:obj forKey:key];
     }
     return result;
 }
