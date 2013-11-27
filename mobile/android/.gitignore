@@ -1,0 +1,9 @@
+tmp
+bin
+build
+dist
+*.zip
+.*
+build.properties
+lib/GigyaSDK*
+libs
