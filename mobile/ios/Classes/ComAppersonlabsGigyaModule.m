@@ -17,6 +17,10 @@
 #import "GSRequestProxy.h"
 #import "GSResponseProxy.h"
 
+@interface ComAppersonlabsGigyaModule ()
+@property (nonatomic, strong) NSMutableDictionary * pendingRequests;
+@end
+
 @implementation ComAppersonlabsGigyaModule
 
 #pragma mark Internal
@@ -34,6 +38,8 @@
 -(void)startup {
 	[super startup];
 	
+    self.pendingRequests = [NSMutableDictionary dictionary];
+    
 	NSLog(@"[INFO] %@ loaded",self);
 }
 
@@ -144,7 +150,7 @@
     ENSURE_UI_THREAD_1_ARG(args)
 
     NSDictionary * dict;
-    ENSURE_ARG_AT_INDEX(dict, args, 0, NSDictionary)
+    ENSURE_ARG_OR_NIL_AT_INDEX(dict, args, 0, NSDictionary)
     
     KrollCallback * success = [dict objectForKey:@"success"];
     KrollCallback * failure = [dict objectForKey:@"failure"];
@@ -198,6 +204,63 @@
 
 #pragma mark Requests
 
+/*
+- (void)sendRequest:(id)args {
+    NSDictionary * dict;
+    
+    ENSURE_ARG_AT_INDEX(dict, args, 0, NSDictionary)
+    
+    NSString * method = [dict objectForKey:@"method"];
+    if (!method) {
+        NSLog(@"[ERROR] missing required parameter: method");
+        return;
+    }
+    
+    BOOL async = [dict objectForKey:@"async"] != nil ? [[dict objectForKey:@"async"] boolValue] : YES;
+    
+    KrollCallback * success = [dict objectForKey:@"success"];
+    KrollCallback * failure = [dict objectForKey:@"failure"];
+    
+    NSMutableDictionary * params = [NSMutableDictionary dictionaryWithDictionary:dict];
+    [params removeObjectsForKeys:@[@"method", @"async", @"success", @"failure"]];
+    
+    NSLog(@"[INFO] parameters are %@", params);
+    
+    GSRequest * req = [GSRequest requestForMethod:method parameters:params];
+    [self.pendingRequests setObject:req forKey:@"req"];
+    if (async) {
+        NSLog(@"[INFO] sending async");
+        [req sendWithResponseHandler:^(GSResponse *response, NSError *error) {
+            NSLog(@"[INFO] async returned %@", response);
+            if (!error) {
+                NSDictionary * params = @{ @"response": [GSResponseProxy dictionaryWithGSResponse:response]};
+                [self _fireEventToListener:@"success" withObject:params listener:success thisObject:nil];
+            }
+            else {
+                NSDictionary * params = @{ @"code": [NSNumber numberWithInteger:error.code], @"error": error.description };
+                [self _fireEventToListener:@"failure" withObject:params listener:failure thisObject:nil];
+            }
+        }];
+        NSLog(@"[INFO] async sent");
+    }
+    else {
+        NSError * error = nil;
+        NSLog(@"[INFO] sending sync");
+        GSResponse * response = [req sendSynchronouslyWithError:&error];
+        if (!error) {
+            NSDictionary * params = @{ @"response": [GSResponseProxy dictionaryWithGSResponse:response]};
+            [success call:@[params] thisObject:nil];
+        }
+        else {
+            NSDictionary * params = @{ @"code": [NSNumber numberWithInteger:error.code], @"error": error.description };
+            [failure call:@[params] thisObject:nil];
+        }
+        NSLog(@"[INFO] sending sync returned %@", response);
+    }
+    
+}
+*/
+
 -(id)requestForMethod:(id)args {
     NSString * method;
     NSDictionary * parameters;
@@ -207,5 +270,4 @@
     
     return [GSRequestProxy proxyWithGSRequest:[GSRequest requestForMethod:method parameters:parameters]];
 }
-
 @end

@@ -1,5 +1,5 @@
 var win = Ti.UI.createWindow({
-	backgroundColor:'white',
+  backgroundColor:'white',
   layout: 'vertical'
 });
 var label = Ti.UI.createLabel({
@@ -12,6 +12,7 @@ Ti.API.info("module is => " + module);
 
 // INITIALIZATION
 
+//module.APIKey = 'your-gigya-api-key-here';
 module.APIKey = '3_prG9bc47yYdLvDyytRV5rOl3Hp2SOxEJvoBnVg84Vy2lMQ8qIAftpyplXxtfqDUM';
 
 // AUTHENTICATION
@@ -22,6 +23,7 @@ var showLoginProvidersButton = Ti.UI.createButton({
 showLoginProvidersButton.addEventListener('click', function(e) {
   label.text = '';
   module.showLoginProvidersDialog({
+/*    providers: ['facebook', 'google'], */
     success: function(e) {
       label.text = 'logged in as ' + e.user.firstName + ' ' + e.user.lastName;
       Ti.API.info("success: showLoginProvidersDialog: "+JSON.stringify(e));
@@ -46,8 +48,7 @@ loginToProviderButton.addEventListener('click', function(e) {
     success: function(e) {
       label.text = 'logged in as ' + e.user.firstName + ' ' + e.user.lastName;
       Ti.API.info("success: showLoginProvidersDialog: "+JSON.stringify(e));
-
-/*   
+      
       // test HTTPClient bug
       var client = Ti.Network.createHTTPClient({
         onload: function(e) {
@@ -60,7 +61,6 @@ loginToProviderButton.addEventListener('click', function(e) {
       client.open("GET", "http://www.google.com/");
       client.send();
       label.text = "sent HTTP req";
-*/      
     },
     failure: function(e) {
       label.text = 'login failure: ' + e.error;
@@ -70,19 +70,13 @@ loginToProviderButton.addEventListener('click', function(e) {
 });
 win.add(loginToProviderButton);
 
+
 var logoutButton = Ti.UI.createButton({
   title: 'Logout'
 });
 logoutButton.addEventListener('click', function(e) {
   label.text = '';
-  module.logout({
-    success: function(e) {
-      label.text = 'logout success';
-    },
-    failure: function(e) {
-      label.text = 'logout failure: ' + JSON.stringify(e);
-    }
-  });
+  module.logout();
 });
 win.add(logoutButton);
 
@@ -94,6 +88,7 @@ sessionButton.addEventListener('click', function(e) {
   label.text = session ? "token="+session.token+"; isValid="+session.isValid : "null";
 });
 win.add(sessionButton);
+
 
 // CONNNECTIONS
 
@@ -119,12 +114,10 @@ win.add(addConnectionProvidersButton);
 // REQUESTS
 
 var sendGetFriendsInfoRequestButton = Ti.UI.createButton({
-  title: 'Get Friends Info'
+  title: 'Get Friends (async)'
 });
 sendGetFriendsInfoRequestButton.addEventListener('click', function(e) {
-  var req = module.requestForMethod("socialize.getFriendsInfo");
-  
-  // non-blocking call
+  var req = module.requestForMethod('socialize.getFriendsInfo');
   req.sendAsync({
     success: function(e) {
       label.text = JSON.stringify(e);
@@ -133,12 +126,20 @@ sendGetFriendsInfoRequestButton.addEventListener('click', function(e) {
       label.text = JSON.stringify(e);
     }
   });
-  
-  // blocking call
-  // var resp = req.sendSync();
-  // Ti.API.info(JSON.stringify(resp));
 });
 win.add(sendGetFriendsInfoRequestButton);
+
+var sendGetAlbumsRequestButton = Ti.UI.createButton({
+  title: 'Get Albums (sync)'
+});
+sendGetAlbumsRequestButton.addEventListener('click', function(e) {
+  var req = module.requestForMethod('socialize.getAlbums');
+  var resp = req.sendSync();
+  label.text = JSON.stringify(resp);
+});
+win.add(sendGetAlbumsRequestButton);
+
+
 
 // AUTH EVENTS
 
@@ -150,6 +151,7 @@ function updateUI(loggedIn) {
   logoutButton.enabled = loggedIn;
   addConnectionProvidersButton.enabled = loggedIn;
   sendGetFriendsInfoRequestButton.enabled = loggedIn;
+  sendGetAlbumsRequestButton.enabled = loggedIn;
 }
 
 module.addEventListener('login', function(e) {
@@ -164,7 +166,7 @@ module.addEventListener('logout', function(e) {
 
 win.addEventListener('open', function(e) {
   var session = module.session;
-  updateUI(!!(session && session.isValid));
+  updateUI(session && session.isValid);
 });
 
 win.open();

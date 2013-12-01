@@ -1,6 +1,7 @@
 package com.appersonlabs.gigya;
 
-import java.util.Iterator;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
 import org.appcelerator.kroll.KrollDict;
@@ -10,6 +11,7 @@ import org.json.JSONObject;
 
 import com.gigya.socialize.GSArray;
 import com.gigya.socialize.GSObject;
+import com.gigya.socialize.GSResponse;
 
 public class GSObjectConverter {
 
@@ -28,6 +30,19 @@ public class GSObjectConverter {
         catch (JSONException e) {
             Log.e(TAG, "error converting GSObject: " + e.getMessage());
         }
+        return null;
+    }
+
+    public static KrollDict fromGSResponse(GSResponse response) {
+        if (response == null) return null;
+
+        try {
+            return new KrollDict(new JSONObject(response.getResponseText()));
+        }
+        catch (JSONException e) {
+            Log.e(TAG, "error converting GSResponse: " + e.getMessage());
+        }
+
         return null;
     }
 
@@ -62,11 +77,20 @@ public class GSObjectConverter {
     }
 
     public static GSObject toGSObject(Map<String, Object> dict) {
+        return toGSObject(dict, null);
+    }
+
+    public static GSObject toGSObject(Map<String, Object> dict, String[] skipKeys) {
         if (dict == null) return null;
+
+        List<String> keysToSkip = skipKeys != null ? Arrays.asList(skipKeys) : null;
 
         GSObject result = new GSObject();
         for (Map.Entry<String, Object> entry : dict.entrySet()) {
             String key = entry.getKey();
+
+            if (keysToSkip != null && keysToSkip.contains(key)) continue;
+
             Object value = entry.getValue();
             if (value instanceof Boolean) {
                 result.put(key, (Boolean) value);

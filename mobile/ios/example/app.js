@@ -12,7 +12,8 @@ Ti.API.info("module is => " + module);
 
 // INITIALIZATION
 
-module.APIKey = 'your-gigya-api-key-here';
+//module.APIKey = 'your-gigya-api-key-here';
+module.APIKey = '3_prG9bc47yYdLvDyytRV5rOl3Hp2SOxEJvoBnVg84Vy2lMQ8qIAftpyplXxtfqDUM';
 
 // AUTHENTICATION
 
@@ -75,14 +76,7 @@ var logoutButton = Ti.UI.createButton({
 });
 logoutButton.addEventListener('click', function(e) {
   label.text = '';
-  module.logout({
-    success: function(e) {
-      label.text = 'logout success';
-    },
-    failure: function(e) {
-      label.text = 'logout failure: ' + JSON.stringify(e);
-    }
-  });
+  module.logout();
 });
 win.add(logoutButton);
 
@@ -120,12 +114,10 @@ win.add(addConnectionProvidersButton);
 // REQUESTS
 
 var sendGetFriendsInfoRequestButton = Ti.UI.createButton({
-  title: 'Get Friends Info'
+  title: 'Get Friends (async)'
 });
 sendGetFriendsInfoRequestButton.addEventListener('click', function(e) {
-  var req = module.requestForMethod("socialize.getFriendsInfo");
-  
-  // non-blocking call
+  var req = module.requestForMethod('socialize.getFriendsInfo');
   req.sendAsync({
     success: function(e) {
       label.text = JSON.stringify(e);
@@ -134,14 +126,20 @@ sendGetFriendsInfoRequestButton.addEventListener('click', function(e) {
       label.text = JSON.stringify(e);
     }
   });
-  
-  /*
-  // blocking call
-  var resp = req.sendSync();
-  Ti.API.info(JSON.stringify(resp));
-  */
 });
 win.add(sendGetFriendsInfoRequestButton);
+
+var sendGetAlbumsRequestButton = Ti.UI.createButton({
+  title: 'Get Albums (sync)'
+});
+sendGetAlbumsRequestButton.addEventListener('click', function(e) {
+  var req = module.requestForMethod('socialize.getAlbums');
+  var resp = req.sendSync();
+  label.text = JSON.stringify(resp);
+});
+win.add(sendGetAlbumsRequestButton);
+
+
 
 // AUTH EVENTS
 
@@ -153,6 +151,7 @@ function updateUI(loggedIn) {
   logoutButton.enabled = loggedIn;
   addConnectionProvidersButton.enabled = loggedIn;
   sendGetFriendsInfoRequestButton.enabled = loggedIn;
+  sendGetAlbumsRequestButton.enabled = loggedIn;
 }
 
 module.addEventListener('login', function(e) {

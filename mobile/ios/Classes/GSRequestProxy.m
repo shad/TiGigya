@@ -64,11 +64,11 @@
     [self.request sendWithResponseHandler:^(GSResponse *response, NSError *error) {
         if (!error) {
             NSDictionary * params = @{ @"response": [GSResponseProxy dictionaryWithGSResponse:response]};
-            [success call:@[params] thisObject:nil];
+            [self _fireEventToListener:@"success" withObject:params listener:success thisObject:nil];
         }
         else {
             NSDictionary * params = @{ @"code": [NSNumber numberWithInteger:error.code], @"error": error.description };
-            [failure call:@[params] thisObject:nil];
+            [self _fireEventToListener:@"failure" withObject:params listener:failure thisObject:nil];
         }
     }];
 }

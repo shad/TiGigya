@@ -30,7 +30,9 @@ import com.gigya.socialize.android.event.GSLoginUIListener;
 @Kroll.module(name = "Gigya", id = "com.appersonlabs.gigya")
 public class GigyaModule extends KrollModule implements GSEventListener {
 
-    private static final String TAG = "GigyaModule";
+    private static final String[] SEND_REQUEST_INTERNAL_PROPS = new String[] { "method", "async", "success", "failure" };
+
+    private static final String   TAG                         = "GigyaModule";
 
     @Kroll.onAppCreate
     public static void onAppCreate(TiApplication app) {
@@ -90,7 +92,7 @@ public class GigyaModule extends KrollModule implements GSEventListener {
     }
 
     @Kroll.method(name = "logout")
-    public void logout(KrollDict dict) {
+    public void logout(@Kroll.argument(optional = true) KrollDict dict) {
         api.logout();
     }
 
@@ -114,8 +116,12 @@ public class GigyaModule extends KrollModule implements GSEventListener {
         fireEvent("logout", null);
     }
 
-    public Object requestForMethod(String method) {
-        return null;
+    @Kroll.method(name = "requestForMethod")
+    public GSRequestProxy requestForMethod(String method, @Kroll.argument(optional = true) KrollDict params) {
+        GSRequestProxy result = new GSRequestProxy(api);
+        result.method = method;
+        result.setParameters(params);
+        return result;
     }
 
     @Kroll.setProperty(name = "APIKey")
