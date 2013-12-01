@@ -118,8 +118,7 @@ public class GigyaModule extends KrollModule implements GSEventListener {
 
     @Kroll.method(name = "requestForMethod")
     public GSRequestProxy requestForMethod(String method, @Kroll.argument(optional = true) KrollDict params) {
-        GSRequestProxy result = new GSRequestProxy(api);
-        result.method = method;
+        GSRequestProxy result = new GSRequestProxy(api, method);
         result.setParameters(params);
         return result;
     }

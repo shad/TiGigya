@@ -18,17 +18,24 @@ public class GSRequestProxy extends KrollProxy {
 
     private GSAPI       api;
 
-    @Kroll.property(name = "method")
-    public String       method;
+    private KrollDict parameters;
 
-    protected KrollDict parameters;
+private String method;
+
+@Kroll.getProperty(name="method")
+public String getMethod() {
+  return method;
+}
 
     @Kroll.property(name = "useHTTPS")
     public boolean      useHTTPS = false;
 
-    public GSRequestProxy(GSAPI api) {
+    public GSRequestProxy(GSAPI api, String method) {
         assert api != null;
+        assert method != null;
+        
         this.api = api;
+        this.method = method;
     }
 
     @Kroll.method(name = "sendAsync")
