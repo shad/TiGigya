@@ -1,5 +1,6 @@
 package com.appersonlabs.gigya;
 
+import java.util.Iterator;
 import java.util.Map;
 
 import org.appcelerator.kroll.KrollDict;
@@ -60,7 +61,7 @@ public class GSObjectConverter {
         return result;
     }
 
-    public static GSObject toGSObject(KrollDict dict) {
+    public static GSObject toGSObject(Map<String, Object> dict) {
         if (dict == null) return null;
 
         GSObject result = new GSObject();

@@ -46,7 +46,8 @@ loginToProviderButton.addEventListener('click', function(e) {
     success: function(e) {
       label.text = 'logged in as ' + e.user.firstName + ' ' + e.user.lastName;
       Ti.API.info("success: showLoginProvidersDialog: "+JSON.stringify(e));
-      
+
+/*   
       // test HTTPClient bug
       var client = Ti.Network.createHTTPClient({
         onload: function(e) {
@@ -59,6 +60,7 @@ loginToProviderButton.addEventListener('click', function(e) {
       client.open("GET", "http://www.google.com/");
       client.send();
       label.text = "sent HTTP req";
+*/      
     },
     failure: function(e) {
       label.text = 'login failure: ' + e.error;
@@ -67,8 +69,6 @@ loginToProviderButton.addEventListener('click', function(e) {
   });
 });
 win.add(loginToProviderButton);
-
-/*
 
 var logoutButton = Ti.UI.createButton({
   title: 'Logout'
@@ -94,7 +94,6 @@ sessionButton.addEventListener('click', function(e) {
   label.text = session ? "token="+session.token+"; isValid="+session.isValid : "null";
 });
 win.add(sessionButton);
-
 
 // CONNNECTIONS
 
@@ -165,7 +164,7 @@ module.addEventListener('logout', function(e) {
 
 win.addEventListener('open', function(e) {
   var session = module.session;
-  updateUI(session && session.isValid);
+  updateUI(!!(session && session.isValid));
 });
-*/
+
 win.open();
