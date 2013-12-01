@@ -166,7 +166,7 @@ module.addEventListener('logout', function(e) {
 
 win.addEventListener('open', function(e) {
   var session = module.session;
-  updateUI(session && session.isValid);
+  updateUI(!!(session && session.isValid));
 });
 
 win.open();
