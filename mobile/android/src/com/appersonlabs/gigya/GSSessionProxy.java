@@ -5,8 +5,6 @@ import java.util.Date;
 import org.appcelerator.kroll.KrollProxy;
 import org.appcelerator.kroll.annotations.Kroll;
 
-import android.util.Log;
-
 import com.gigya.socialize.android.GSSession;
 
 @Kroll.proxy(parentModule = GigyaModule.class)

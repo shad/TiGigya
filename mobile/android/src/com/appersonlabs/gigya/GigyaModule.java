@@ -23,6 +23,7 @@ import com.gigya.socialize.GSResponse;
 import com.gigya.socialize.GSResponseListener;
 import com.gigya.socialize.android.GSAPI;
 import com.gigya.socialize.android.GSSession;
+import com.gigya.socialize.android.event.GSConnectUIListener;
 import com.gigya.socialize.android.event.GSEventListener;
 import com.gigya.socialize.android.event.GSLoginUIListener;
 
@@ -40,6 +41,12 @@ public class GigyaModule extends KrollModule implements GSEventListener {
 
     public GigyaModule() {
         super();
+    }
+
+    @Kroll.getProperty(name = "session")
+    public GSSessionProxy getSession() {
+        GSSession session = api.getSession();
+        return session != null ? new GSSessionProxy(api.getSession()) : null;
     }
 
     @Kroll.method(name = "loginToProvider", runOnUiThread = true)
@@ -107,10 +114,8 @@ public class GigyaModule extends KrollModule implements GSEventListener {
         fireEvent("logout", null);
     }
 
-    @Kroll.getProperty(name = "session")
-    public GSSessionProxy getSession() {
-        GSSession session = api.getSession();
-        return session != null ? new GSSessionProxy(api.getSession()) : null;
+    public Object requestForMethod(String method) {
+        return null;
     }
 
     @Kroll.setProperty(name = "APIKey")
@@ -121,12 +126,65 @@ public class GigyaModule extends KrollModule implements GSEventListener {
         }
     }
 
+    @Kroll.method(name = "showAddConnectionProvidersDialog", runOnUiThread = true)
     public void showAddConnectionProvidersDialog(KrollDict dict) {
+        GSObject params = new GSObject();
 
-    }
+        if (dict.containsKey("enabledProviders")) {
+            params.put("enabledProviders", TextUtils.join(",", (String[]) dict.get("enabledProviders")));
+        }
+        if (dict.containsKey("disabledProviders")) {
+            params.put("disabledProviders", TextUtils.join(",", (String[]) dict.get("disabledProviders")));
+        }
+        if (dict.containsKey("captionText")) {
+            params.put("captionText", (String) dict.get("captionText"));
+        }
+        if (dict.containsKey("cid")) {
+            params.put("cid", (String) dict.get("cid"));
+        }
 
-    public Object requestForMethod(String method) {
-        return null;
+        final KrollFunction success = (KrollFunction) dict.get("success");
+        final KrollFunction failure = (KrollFunction) dict.get("failure");
+        final KrollObject thisObject = getKrollObject();
+
+        api.showAddConnectionsUI(params, new GSConnectUIListener() {
+
+            @Override
+            public void onClose(boolean cancelled, Object context) {
+                if (failure != null && cancelled) {
+                    KrollDict params = new KrollDict();
+                    params.put("code", -1);
+                    params.put("error", "User cancelled login");
+                    failure.call(thisObject, params);
+                }
+            }
+
+            @Override
+            public void onConnectionAdded(String provider, GSObject user, Object context) {
+                if (success != null) {
+                    KrollDict eventParams = new KrollDict();
+                    eventParams.put("provider", provider);
+                    eventParams.put("user", GSObjectConverter.fromGSObject(user));
+                    success.call(thisObject, eventParams);
+                }
+            }
+
+            @Override
+            public void onError(GSResponse response, Object context) {
+                if (failure != null) {
+                    KrollDict params = new KrollDict();
+                    params.put("code", response.getErrorCode());
+                    params.put("error", response.getErrorMessage());
+                    failure.call(thisObject, params);
+                }
+            }
+
+            @Override
+            public void onLoad(Object context) {
+                // TODO Auto-generated method stub
+
+            }
+        }, null);
     }
 
     @Kroll.method(name = "showLoginProvidersDialog", runOnUiThread = true)
