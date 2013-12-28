@@ -93,7 +93,11 @@ public class GigyaModule extends KrollModule implements GSEventListener {
 
     @Kroll.method(name = "logout")
     public void logout(@Kroll.argument(optional = true) KrollDict dict) {
+        final KrollFunction success = (KrollFunction) dict.get("success");
+        final KrollObject thisObject = getKrollObject();
         api.logout();
+        KrollDict emptyDict = new KrollDict();
+        success.call(thisObject, emptyDict);
     }
 
     @Override
@@ -117,9 +121,10 @@ public class GigyaModule extends KrollModule implements GSEventListener {
     }
 
     @Kroll.method(name = "requestForMethod")
-    public GSRequestProxy requestForMethod(String method, @Kroll.argument(optional = true) KrollDict params) {
+    public GSRequestProxy requestForMethod(String method, @Kroll.argument(optional = true) KrollDict params,  @Kroll.argument(optional = true) boolean https) {
         GSRequestProxy result = new GSRequestProxy(api, method);
         result.setParameters(params);
+        result.setUseHTTPS(https);
         return result;
     }
 

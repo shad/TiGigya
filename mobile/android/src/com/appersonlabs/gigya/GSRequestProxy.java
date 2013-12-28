@@ -19,6 +19,8 @@ public class GSRequestProxy extends KrollProxy {
     private GSAPI       api;
 
     private KrollDict parameters;
+    
+    private boolean useHTTPS;
 
 private String method;
 
@@ -26,10 +28,6 @@ private String method;
 public String getMethod() {
   return method;
 }
-
-    @Kroll.property(name = "useHTTPS")
-    public boolean      useHTTPS = false;
-
     public GSRequestProxy(GSAPI api, String method) {
         assert api != null;
         assert method != null;
@@ -75,5 +73,10 @@ public String getMethod() {
     @Kroll.setProperty(name = "parameters")
     public void setParameters(KrollDict parameters) {
         this.parameters = parameters;
+    }
+    
+    @Kroll.setProperty(name = "useHTTPS")
+    public void setUseHTTPS(boolean useHTTPS) {
+        this.useHTTPS = useHTTPS;
     }
 }
