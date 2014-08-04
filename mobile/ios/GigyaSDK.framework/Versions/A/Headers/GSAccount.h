@@ -1,27 +1,27 @@
 //
-//  GSUser.h
+//  GSAccount.h
 //  GigyaSDK
 //
-//  Created by Ran Dahan on 7/11/13.
-//  Copyright (c) 2013 Gigya. All rights reserved.
+//  Created by Ran on 1/14/14.
+//  Copyright (c) 2014 Gigya. All rights reserved.
 //
 
 #import "GSResponse.h"
 
 /**
- This class represents Gigya user information, as returned from the [socialize.getUserInfo](http://developers.gigya.com/037_API_reference/010_Socialize/socialize.getUserInfo) method in the [Gigya REST API](http://developers.gigya.com/037_API_reference).
+ This class represents Gigya account information, as returned from the [accounts.getAccountInfo](http://developers.gigya.com/037_API_reference/020_Accounts/accounts.getAccountInfo) method in the [Gigya REST API](http://developers.gigya.com/037_API_reference).
  
- `GSUser` values can be accessed by keys (similiar to NSDictionary) and support subscripting syntax:
+ `GSAccount` values can be accessed by keys (similiar to NSDictionary) and support subscripting syntax:
  
     // These two statements are equivalent
-    NSString *email = [user objectForKey:@"email"];
-    NSString *email = user[@"email"];
+    NSString *uid = [account objectForKey:@"UID"];
+    NSString *uid = account[@"UID"];
  
- `GSUser` also providers properties for easy access to the most commonly used values.
+ `GSAccount` also providers properties for easy access to the most commonly used values.
  */
-@interface GSUser : GSResponse
+@interface GSAccount : GSResponse
 
-/** @name Basic User Information */
+/** @name Basic Account Information */
 
 /*!
  The unique ID of the user.
@@ -29,9 +29,14 @@
 @property (nonatomic, readonly) NSString *UID;
 
 /*!
- The name of the provider that the user used in order to login.
+ The user's profile information as described in the [Profile](http://developers.gigya.com/020_Client_API/020_Accounts/010_Objects/Profile) object.
  */
-@property (nonatomic, readonly) NSString *loginProvider;
+@property (nonatomic, readonly) NSDictionary *profile;
+
+/*!
+ Custom data that was stored for the user.
+ */
+@property (nonatomic, readonly) NSDictionary *data;
 
 /*!
  The user's nickname, this may be either the nickname provided by the connected provider or a concatenation of the first and last names.
@@ -52,11 +57,6 @@
  The user's email.
  */
 @property (nonatomic, readonly) NSString *email;
-
-/*!
- An array of dictionaries that represent [identity objects](http://developers.gigya.com/020_Client_API/010_Socialize/010_Objects/Identity_object), describing a person's identity on a specific provider.
- */
-@property (nonatomic, readonly) NSArray *identities;
 
 /*!
  The URL of person's full size photo.
@@ -94,7 +94,7 @@
 /** @name JSON Encoding */
 
 /*!
- Returns a JSON representation of the `getUserInfo` response.
+ Returns a JSON representation of the `accounts.getAccountInfo` response.
  */
 - (NSString *)JSONString;
 
