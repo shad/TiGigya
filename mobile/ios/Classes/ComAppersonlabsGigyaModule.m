@@ -35,6 +35,15 @@
 
 #pragma mark Lifecycle
 
+-(id)init
+{
+    if (self = [super init])
+    {
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationDidBecomeActive:) name:UIApplicationDidBecomeActiveNotification object:nil];
+    }
+    return self;
+}
+
 -(void)startup {
 	[super startup];
 	
@@ -45,6 +54,17 @@
 
 -(void)shutdown:(id)sender {
 	[super shutdown:sender];
+}
+
+-(void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationDidBecomeActiveNotification object:nil];
+    [super dealloc];
+}
+
+-(void)applicationDidBecomeActive:(NSNotification*)note
+{
+    [Gigya handleDidBecomeActive];
 }
 
 #pragma mark -

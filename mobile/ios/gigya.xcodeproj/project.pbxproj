@@ -26,7 +26,7 @@
 		24DD6CFA1134B3F500162E58 /* ComAppersonlabsGigyaModule.m in Sources */ = {isa = PBXBuildFile; fileRef = 24DD6CF81134B3F500162E58 /* ComAppersonlabsGigyaModule.m */; };
 		AA747D9F0F9514B9006C5449 /* ComAppersonlabsGigya_Prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = AA747D9E0F9514B9006C5449 /* ComAppersonlabsGigya_Prefix.pch */; };
 		AACBBE4A0F95108600F1A2B1 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AACBBE490F95108600F1A2B1 /* Foundation.framework */; };
-		D973DC1C185281090026BEE0 /* GigyaSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D973DC1B185281090026BEE0 /* GigyaSDK.framework */; };
+		D921499519F54B930018320A /* GigyaSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D921499419F54B930018320A /* GigyaSDK.framework */; };
 		DA150E7B183E893B00D2CCD0 /* Gigya.h in Headers */ = {isa = PBXBuildFile; fileRef = DA150E74183E893B00D2CCD0 /* Gigya.h */; };
 		DA150E7C183E893B00D2CCD0 /* GSObject.h in Headers */ = {isa = PBXBuildFile; fileRef = DA150E75183E893B00D2CCD0 /* GSObject.h */; };
 		DA150E7D183E893B00D2CCD0 /* GSRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = DA150E76183E893B00D2CCD0 /* GSRequest.h */; };
@@ -34,7 +34,6 @@
 		DA150E7F183E893B00D2CCD0 /* GSSession.h in Headers */ = {isa = PBXBuildFile; fileRef = DA150E78183E893B00D2CCD0 /* GSSession.h */; };
 		DA150E80183E893B00D2CCD0 /* GSSessionDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = DA150E79183E893B00D2CCD0 /* GSSessionDelegate.h */; };
 		DA150E81183E893B00D2CCD0 /* GSUser.h in Headers */ = {isa = PBXBuildFile; fileRef = DA150E7A183E893B00D2CCD0 /* GSUser.h */; };
-		DA150E83183E8DA900D2CCD0 /* libGigyaSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DA150E82183E8DA900D2CCD0 /* libGigyaSDK.a */; };
 		DA2434F7184BBE46004E041C /* GSRequestProxy.h in Headers */ = {isa = PBXBuildFile; fileRef = DA2434F5184BBE46004E041C /* GSRequestProxy.h */; };
 		DA2434F8184BBE46004E041C /* GSRequestProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = DA2434F6184BBE46004E041C /* GSRequestProxy.m */; };
 		DA39CB811842FBE600F64FF9 /* TiApp+HandleOpenURL.h in Headers */ = {isa = PBXBuildFile; fileRef = DA39CB7F1842FBE600F64FF9 /* TiApp+HandleOpenURL.h */; };
@@ -64,7 +63,7 @@
 		AA747D9E0F9514B9006C5449 /* ComAppersonlabsGigya_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ComAppersonlabsGigya_Prefix.pch; sourceTree = SOURCE_ROOT; };
 		AACBBE490F95108600F1A2B1 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		D2AAC07E0554694100DB518D /* libComAppersonlabsGigya.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libComAppersonlabsGigya.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		D973DC1B185281090026BEE0 /* GigyaSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GigyaSDK.framework; sourceTree = "<group>"; };
+		D921499419F54B930018320A /* GigyaSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GigyaSDK.framework; path = platform/GigyaSDK.framework; sourceTree = "<group>"; };
 		DA150E74183E893B00D2CCD0 /* Gigya.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Gigya.h; sourceTree = "<group>"; };
 		DA150E75183E893B00D2CCD0 /* GSObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GSObject.h; sourceTree = "<group>"; };
 		DA150E76183E893B00D2CCD0 /* GSRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GSRequest.h; sourceTree = "<group>"; };
@@ -90,8 +89,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D973DC1C185281090026BEE0 /* GigyaSDK.framework in Frameworks */,
-				DA150E83183E8DA900D2CCD0 /* libGigyaSDK.a in Frameworks */,
+				D921499519F54B930018320A /* GigyaSDK.framework in Frameworks */,
 				AACBBE4A0F95108600F1A2B1 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -122,7 +120,7 @@
 		0867D69AFE84028FC02AAC07 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				D973DC1B185281090026BEE0 /* GigyaSDK.framework */,
+				D921499419F54B930018320A /* GigyaSDK.framework */,
 				DA150E82183E8DA900D2CCD0 /* libGigyaSDK.a */,
 				AACBBE490F95108600F1A2B1 /* Foundation.framework */,
 			);
@@ -295,6 +293,7 @@
 					"$(inherited)",
 					/Users/paul/Dropbox/apperson/gigya/mobile/ios/frameworks,
 					/Users/mattapperson/Development/TiGigya/mobile/ios,
+					"$(PROJECT_DIR)/platform",
 				);
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -339,6 +338,7 @@
 					"$(inherited)",
 					/Users/paul/Dropbox/apperson/gigya/mobile/ios/frameworks,
 					/Users/mattapperson/Development/TiGigya/mobile/ios,
+					"$(PROJECT_DIR)/platform",
 				);
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_MODEL_TUNING = G5;
