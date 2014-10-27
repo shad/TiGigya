@@ -15,6 +15,13 @@
  */
 @interface GSSession : NSObject <NSCoding>
 
+/** @name Accessing Session Information */
+
+/*!
+ Indicates whether the Gigya session is valid.
+ */
+- (BOOL)isValid;
+
 /*!
  The session authentication token.
  */
@@ -34,6 +41,8 @@
  The provider used to login.
  */
 @property (nonatomic, copy) NSString *lastLoginProvider;
+
+/** @name Manually Creating a Session */
 
 /*!
  Initializes a new `GSSession` instance with the given token and secret.
@@ -57,9 +66,5 @@
 - (GSSession *)initWithSessionToken:(NSString *)token
                              secret:(NSString *)secret
                          expiration:(NSDate *)expiration;
-/*!
- Indicates whether the Gigya session is valid.
- */
-- (BOOL)isValid;
 
 @end

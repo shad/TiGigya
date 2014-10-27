@@ -14,12 +14,14 @@
  `GSUser` values can be accessed by keys (similiar to NSDictionary) and support subscripting syntax:
  
     // These two statements are equivalent
-    NSString *token = [user objectForKey:@"email"];
-    NSString *token = user[@"email"];
+    NSString *email = [user objectForKey:@"email"];
+    NSString *email = user[@"email"];
  
  `GSUser` also providers properties for easy access to the most commonly used values.
  */
 @interface GSUser : GSResponse
+
+/** @name Basic User Information */
 
 /*!
  The unique ID of the user.
@@ -89,7 +91,7 @@
  */
 - (id)objectForKeyedSubscript:(NSString *)key;
 
-/** @name Encoding */
+/** @name JSON Encoding */
 
 /*!
  Returns a JSON representation of the `getUserInfo` response.

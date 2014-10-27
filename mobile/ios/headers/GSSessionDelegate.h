@@ -19,12 +19,14 @@
  - User was logged out
  - The active session was set manually (by calling `[Gigya setSession:]`)
  */
+
+__attribute((deprecated("Use [Gigya setSocializeDelegate:] with a GSSocializeDelegate instead")))
 @protocol GSSessionDelegate <NSObject>
 
 @optional
 
 /*!
- Invoked after a user has logged in successfuly.
+ Invoked after a user has logged in successfully.
  
  @param user The logged in user object.
  @see Gigya
@@ -46,7 +48,8 @@
  - Logging in
  - Adding/removing a connection
  - Other API calls that return an updated Gigya session (`sessionInfo`).
- 
+
+ @param user The updated user object.
  @see Gigya
  */
 - (void)userInfoDidChange:(GSUser *)user;

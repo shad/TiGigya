@@ -10,6 +10,7 @@
 
 @interface GSObject : NSObject
 
+@property (nonatomic, copy) NSString *source;
 - (id)objectForKeyedSubscript:(NSString *)key;
 - (void)setObject:(id)obj forKeyedSubscript:(NSString *)key;
 - (id)objectForKey:(NSString *)key;

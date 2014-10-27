@@ -49,6 +49,22 @@ typedef void(^GSResponseHandler)(GSResponse *response, NSError *error);
  */
 + (GSRequest *)requestForMethod:(NSString *)method parameters:(NSDictionary*)parameters;
 
+/*!
+ The API method name.
+ */
+@property (nonatomic, copy) NSString *method;
+
+/*!
+ The paremeters for the API method.
+ */
+@property (nonatomic, retain) NSMutableDictionary* parameters;
+
+/*!
+ Indicates whether HTTPS should be used. The default is `YES`. Overrides the global setting in [Gigya].
+ */
+@property (nonatomic) BOOL useHTTPS;
+
+
 /** @name Sending a Request */
 
 /*!
@@ -72,24 +88,9 @@ typedef void(^GSResponseHandler)(GSResponse *response, NSError *error);
  */
 - (void)cancel;
 
-/** @name Request Properties */
-
-/*!
- The paremeters for the API method.
- */
-@property (nonatomic, retain) NSMutableDictionary* parameters;
-
-/*!
- The API method name.
- */
-@property (nonatomic, copy) NSString *method;
-
-/*!
- Indicates whether HTTPS should be used. The default is `YES`. Overrides the global setting in [Gigya].
- */
-@property (nonatomic) BOOL useHTTPS;
 @property (nonatomic, retain) GSSession *session;
 @property (nonatomic, readonly) NSString *requestID;
 @property (nonatomic)         BOOL includeAuthInfo;
+@property (nonatomic, copy) NSString *source;
 
 @end

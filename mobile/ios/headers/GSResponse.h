@@ -20,6 +20,11 @@
  */
 @interface GSResponse : GSObject
 
++ (GSResponse *)responseForMethod:(NSString *)method data:(NSData *)data;
++ (GSResponse *)responseWithError:(NSError *)error;
+
+/** @name Basic Response Information */
+
 /*!
  The API method name.
  */
@@ -34,8 +39,6 @@
  Unique identifier of the transaction, for debugging purposes.
  */
 @property (readonly) NSString *callId;
-
-+ (GSResponse *)responseForMethod:(NSString *)method data:(NSData *)data;
 
 /** @name Accessing Keys and Values */
 
@@ -60,7 +63,7 @@
  */
 - (id)objectForKeyedSubscript:(NSString *)key;
 
-/** @name Encoding */
+/** @name JSON Encoding */
 
 /*!
  Returns a JSON representation of the response.
