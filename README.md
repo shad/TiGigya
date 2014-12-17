@@ -91,7 +91,7 @@ with that provider.
 **loginToProvider**(options)
 
 * options (dictionary): login options. Supported keys are:  
-    * provider (string, required): the name of the provider to authenticate with.
+    * name (string, required): the name of the provider to authenticate with.
     * forceAuthentication (boolean): if set to true, the user will be prompted for authentication
       details, even if they are already logged in to the provider (Android only).
     * facebookExtraPermissions (string): a comma-delimited string of extended permissions to request
