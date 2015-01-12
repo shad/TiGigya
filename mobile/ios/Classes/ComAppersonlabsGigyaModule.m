@@ -160,7 +160,6 @@
             [self _fireEventToListener:@"success" withObject:params listener:success thisObject:nil];
         }
         if (error && failure) {
-          NSLog(@"[DEBUG] failed login userInfo %@", error.userInfo);
           NSDictionary * params = @{ @"code": [NSNumber numberWithInteger:error.code], @"error": error.description, @"userInfo":error.userInfo };
             [self _fireEventToListener:@"failure" withObject:params listener:failure thisObject:nil];
         }
