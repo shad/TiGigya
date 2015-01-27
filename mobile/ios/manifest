@@ -2,10 +2,10 @@
 # this is your module manifest and used by Titanium
 # during compilation, packaging, distribution, etc.
 #
-version: 1.0.0
+version: 1.1.0
 apiversion: 2
 description: A wrapper for the gigya SDK
-author: Your Name
+author: Apperson Labs
 license: MIT
 copyright: Copyright (c) 2013 by Your Company
 
@@ -15,4 +15,4 @@ name: gigya
 moduleid: com.appersonlabs.gigya
 guid: 73e1497d-8226-4d81-8a41-823fcfab3a96
 platform: iphone
-minsdk: 3.1.3.GA
+minsdk: 3.4.0.GA

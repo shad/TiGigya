@@ -11,8 +11,7 @@ var module = require('com.appersonlabs.gigya');
 Ti.API.info("module is => " + module);
 
 // INITIALIZATION
-
-module.APIKey = 'your-gigya-api-key-here';
+module.initialize('your-gigya-api-key-here','optionally-APIDomain');
 
 // AUTHENTICATION
 

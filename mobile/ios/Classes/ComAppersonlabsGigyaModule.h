@@ -7,7 +7,7 @@
 #import "TiModule.h"
 #import "Gigya.h"
 
-@interface ComAppersonlabsGigyaModule : TiModule <GSSessionDelegate>
+@interface ComAppersonlabsGigyaModule : TiModule <GSSocializeDelegate>
 {
 }
 

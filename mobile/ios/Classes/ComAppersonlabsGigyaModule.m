@@ -68,7 +68,7 @@
 }
 
 #pragma mark -
-#pragma mark GSSessionDelegate
+#pragma mark GSSocalizeDelegate
 
 - (void)userDidLogin:(id)user {
     id obj = user ? @{ @"user": [GSUserProxy dictionaryWithGSUser:user] } : nil;
@@ -87,18 +87,30 @@
 #pragma mark -
 #pragma mark Authentication
 
-- (void)setAPIKey:(id)arg {
-    ENSURE_STRING(arg)
-
+- (void)initialize:(NSArray *) args {
+    // [args objectAtIndex:1]
+    
+    
     // Gigya docs say to only call this once
     static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        TiThreadPerformOnMainThread(^{
-            [Gigya initWithAPIKey:arg];
-            [Gigya setSessionDelegate:self];
-            NSLog(@"[INFO] initialized Gigya");
-        }, YES);
-    });
+    
+    if ([args objectAtIndex:1]) {
+        dispatch_once(&onceToken, ^{
+            TiThreadPerformOnMainThread(^{
+                [Gigya initWithAPIKey:[TiUtils stringValue:[args objectAtIndex:0]] APIDomain:[TiUtils stringValue:[args objectAtIndex:1]]];
+                [Gigya setSocializeDelegate:self];
+                NSLog(@"[INFO] initialized Gigya");
+            }, YES);
+        });
+    } else {
+        dispatch_once(&onceToken, ^{
+            TiThreadPerformOnMainThread(^{
+                [Gigya initWithAPIKey:[TiUtils stringValue:[args objectAtIndex:0]]];
+                [Gigya setSocializeDelegate:self];
+                NSLog(@"[INFO] initialized Gigya");
+            }, YES);
+        });
+    }
 }
 
 - (id)session {

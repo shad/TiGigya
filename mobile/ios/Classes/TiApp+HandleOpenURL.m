@@ -20,6 +20,7 @@
     [launchOptions setObject:[url absoluteString] forKey:@"url"];
     [launchOptions removeObjectForKey:UIApplicationLaunchOptionsSourceApplicationKey];
     [launchOptions setObject:sourceApplication forKey:@"source"];
+    NSLog(@"[GIGYA] handleOpenURL %@",url);
     return [Gigya handleOpenURL:url
               sourceApplication:sourceApplication
                      annotation:annotation];
