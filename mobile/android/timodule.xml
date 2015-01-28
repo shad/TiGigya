@@ -9,6 +9,7 @@
 			<application>
 				<activity and android:name="com.gigya.socialize.android.ui.HostActivity"
 					android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+				<!-- Needs to go in tiapp.xml
 				<activity
 					android:name="com.gigya.socialize.android.login.providers.WebLoginActivity"
 					android:theme="@android:style/Theme.Translucent.NoTitleBar"
@@ -20,6 +21,7 @@
 						<data android:scheme="ENTER_YOUR_ACTIVITY_NAME_HERE" android:host="gsapi" />
 					</intent-filter>
 				</activity>
+				-->
 
 				<uses-permission android:name="android.permission.INTERNET" />
 				<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
