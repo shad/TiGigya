@@ -1,9 +1,18 @@
-Building
+Android Manifest Requirement
 ========
 
-This module requires the Gigya SDK Framework to build.
+You will need to add this to your android manifest in tiapp.xml
 
-1. Download the Android framework from the Gigya developer site.
-1. Place GigyaSDK-2.15.9.jar (version may vary) in the `lib` directory.
-1. Build the module using `build.py`
+	<activity
+		android:name="com.gigya.socialize.android.login.providers.WebLoginActivity"
+		android:theme="@android:style/Theme.Translucent.NoTitleBar"
+		android:launchMode="singleTask" android:allowTaskReparenting="true">
+		<intent-filter>
+			<action android:name="android.intent.action.VIEW" />
+			<category android:name="android.intent.category.DEFAULT" />
+			<category android:name="android.intent.category.BROWSABLE" />
+			<data android:scheme="YOUR_APP_ACTIVITY_NAME" android:host="gsapi" />
+		</intent-filter>
+	</activity>
 
+Note that you will need to replace "YOUR_APP_ACTIVITY_NAME" with the activity name for your app, typically something like ".AppNameActivity". You can always find the activity name in build/android/AndroidManifest.xml
