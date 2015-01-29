@@ -6,8 +6,6 @@ import org.appcelerator.kroll.KrollObject;
 import org.appcelerator.kroll.KrollProxy;
 import org.appcelerator.kroll.annotations.Kroll;
 
-import android.util.Log;
-
 import com.gigya.socialize.GSObject;
 import com.gigya.socialize.GSResponse;
 import com.gigya.socialize.GSResponseListener;
@@ -16,29 +14,30 @@ import com.gigya.socialize.android.GSAPI;
 @Kroll.proxy(parentModule = GigyaModule.class)
 public class GSRequestProxy extends KrollProxy {
 
-    private GSAPI       api;
+    private final GSAPI api;
 
     private KrollDict parameters;
-    
+
     private boolean useHTTPS;
 
-private String method;
+    private final String method;
 
-@Kroll.getProperty(name="method")
-public String getMethod() {
-  return method;
-}
+    @Kroll.getProperty(name = "method")
+    public String getMethod() {
+        return method;
+    }
+
     public GSRequestProxy(GSAPI api, String method) {
         assert api != null;
         assert method != null;
-        
+
         this.api = api;
         this.method = method;
     }
 
     @Kroll.method(name = "sendAsync")
     public void sendAsync(KrollDict dict) {
-        
+
         final KrollFunction success = (KrollFunction) dict.get("success");
         final KrollFunction failure = (KrollFunction) dict.get("failure");
         final KrollObject thisObject = getKrollObject();
@@ -74,7 +73,7 @@ public String getMethod() {
     public void setParameters(KrollDict parameters) {
         this.parameters = parameters;
     }
-    
+
     @Kroll.setProperty(name = "useHTTPS")
     public void setUseHTTPS(boolean useHTTPS) {
         this.useHTTPS = useHTTPS;
