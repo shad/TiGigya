@@ -4,6 +4,13 @@ The **TiGigya** module provides an interface to the authentication functions and
 [REST API](http://developers.gigya.com/037_API_reference) of the [Gigya](http://gigya.com/)
 platform.
 
+## Quick Start
+
+### Get it [![gitTio](http://gitt.io/badge.png)](http://gitt.io/component/com.appersonlabs.gigya)
+Download the latest distribution ZIP-file and consult the [Titanium Documentation](http://docs.appcelerator.com/titanium/latest/#!/guide/Using_a_Module) on how install it, or simply use the [gitTio CLI](http://gitt.io/cli):
+
+`$ gittio install com.appersonlabs.gigya`
+
 ### iOS setup
 
 The Gigya module requires that the application have a custom URL scheme that matches the
@@ -54,17 +61,13 @@ to get an API key.
 Load this module in your Titanium app as follows:
 
     var gigya = require('com.appersonlabs.gigya');
-    gigya.APIKey = 'your-gigya-api-key';
+    gigya.initialize('your-gigya-api-key-here','optionally-APIDomain');
 
-The `APIKey` property must be set before calling any methods.
+The `initialize` method must be called before calling any other methods.
 
 ## Module object
 
 ### Properties
-
-**APIKey**
-
-string, read/write.  The unique key obtained from Gigya that allows access to their remote API.
 
 **session**
 
@@ -74,6 +77,13 @@ string, read/write.  The unique key obtained from Gigya that allows access to th
 
 All arguments and optional dictionary values are optional unless otherwise stated.  Failure callbacks
 are passed a dictionary with an error code (`code`) and message (`error`).
+
+**initialize**(api_key,api_domain)
+
+* api_key (string, required): Your Gigya API key.
+* api_domain (string): Your Gigya partner API domain.
+
+Initializes the Gigya module for use.
 
 **showLoginProvidersDialog**(options)
 
