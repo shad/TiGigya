@@ -90,10 +90,16 @@ public class GigyaModule extends KrollModule {
     @Kroll.method(name = "logout")
     public void logout(@Kroll.argument(optional = true) KrollDict dict) {
         final KrollFunction success = (KrollFunction) dict.get("success");
+        final KrollFunction failure = (KrollFunction) dict.get("failure");
         final KrollObject thisObject = getKrollObject();
-        GSAPI.getInstance().logout();
         KrollDict emptyDict = new KrollDict();
-        success.call(thisObject, emptyDict);
+        
+        if (GSAPI.getInstance().getSession() != null) {
+            GSAPI.getInstance().logout();
+            success.call(thisObject, emptyDict);
+        } else {
+            failure.call(thisObject, emptyDict);
+        }
     }
 
     @Kroll.method(name = "requestForMethod")
@@ -104,34 +110,64 @@ public class GigyaModule extends KrollModule {
         result.setUseHTTPS(https);
         return result;
     }
-
+    
     @Kroll.method(name = "initialize")
     public void initialize(String apikey, String dataCentreDomain) {
-
+        
         GSAPI.getInstance().setSocializeEventListener(new GSSocializeEventListener() {
             @Override
             public void onConnectionAdded(String provider, GSObject user, Object context) {
             }
-
+            
             @Override
             public void onConnectionRemoved(String provider, Object context) {
-
+                
             }
-
+            
             @Override
             public void onLogin(String provider, GSObject user, Object context) {
                 KrollDict params = new KrollDict();
                 params.put("user", GSObjectConverter.fromGSObject(user));
                 fireEvent("login", params);
             }
-
+            
             @Override
             public void onLogout(Object context) {
                 fireEvent("logout", null);
             }
         });
-
+        
         GSAPI.getInstance().initialize(this.getActivity(), apikey, dataCentreDomain);
+    }
+
+    
+    @Kroll.method(name = "initialize")
+    public void initialize(String apikey) {
+        
+        GSAPI.getInstance().setSocializeEventListener(new GSSocializeEventListener() {
+            @Override
+            public void onConnectionAdded(String provider, GSObject user, Object context) {
+            }
+            
+            @Override
+            public void onConnectionRemoved(String provider, Object context) {
+                
+            }
+            
+            @Override
+            public void onLogin(String provider, GSObject user, Object context) {
+                KrollDict params = new KrollDict();
+                params.put("user", GSObjectConverter.fromGSObject(user));
+                fireEvent("login", params);
+            }
+            
+            @Override
+            public void onLogout(Object context) {
+                fireEvent("logout", null);
+            }
+        });
+        
+        GSAPI.getInstance().initialize(this.getActivity(), apikey);
     }
 
     @Kroll.method(name = "showAddConnectionProvidersDialog", runOnUiThread = true)
