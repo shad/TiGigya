@@ -172,7 +172,7 @@
             [self _fireEventToListener:@"success" withObject:params listener:success thisObject:nil];
         }
         if (error && failure) {
-            NSDictionary * params = @{ @"code": [NSNumber numberWithInteger:error.code], @"error": error.description };
+          NSDictionary * params = @{ @"code": [NSNumber numberWithInteger:error.code], @"error": error.description, @"userInfo":error.userInfo };
             [self _fireEventToListener:@"failure" withObject:params listener:failure thisObject:nil];
         }
      }];
