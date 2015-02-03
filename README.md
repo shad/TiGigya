@@ -41,17 +41,25 @@ the custom URL scheme, edit `tiapp.xml` and add a `<string>` element under the
 ### Android setup
 
 Android apps require an Activity defined for the various login screens.  Ensure that
-your `tiapp.xml` file contains that activity and the two permissions listed below:
+your `tiapp.xml` file contains the code below:
 
-    <android xmlns:android="http://schemas.android.com/apk/res/android">
-      <manifest>
-        <application>
-          <activity android:name="com.gigya.socialize.android.login.HostActivity" android:theme="@android:style/Theme.Translucent.NoTitleBar" />
-          <uses-permission android:name="android.permission.INTERNET"/>
-          <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-        </application>
-      </manifest>
-    </android>
+	<android xmlns:android="http://schemas.android.com/apk/res/android">
+		<manifest>
+			<application>
+				<activity
+					android:name="com.gigya.socialize.android.login.providers.WebLoginActivity"
+					android:theme="@android:style/Theme.Translucent.NoTitleBar"
+					android:launchMode="singleTask" android:allowTaskReparenting="true">
+					<intent-filter>
+						<action android:name="android.intent.action.VIEW" />
+						<category android:name="android.intent.category.DEFAULT" />
+						<category android:name="android.intent.category.BROWSABLE" />
+						<data android:scheme="YOUR_APP_ACTIVITY_NAME" android:host="gsapi" />
+					</intent-filter>
+				</activity>
+			</application>
+		</manifest>
+	</android>
 
 ## Loading the module
 
