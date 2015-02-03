@@ -1,0 +1,18 @@
+#
+# this is your module manifest and used by Titanium
+# during compilation, packaging, distribution, etc.
+#
+version: 1.0.0
+apiversion: 2
+description: A wrapper for the gigya SDK
+author: Apperson Labs
+license: MIT
+copyright: Copyright (c) 2014 by Apperson Labs
+
+
+# these should not be edited
+name: gigya
+moduleid: com.appersonlabs.gigya
+guid: 3f77fd97-e30b-4cb2-9636-e1b7a83a5243
+platform: android
+minsdk: 3.4.0.GA
