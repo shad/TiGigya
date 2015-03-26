@@ -99,7 +99,7 @@
             TiThreadPerformOnMainThread(^{
                 [Gigya initWithAPIKey:[TiUtils stringValue:[args objectAtIndex:0]] APIDomain:[TiUtils stringValue:[args objectAtIndex:1]]];
                 [Gigya setSocializeDelegate:self];
-                NSLog(@"[INFO] initialized Gigya");
+                NSLog(@"[INFO] initialized Gigya with APIKey and APIDomain");
             }, YES);
         });
     } else {
@@ -107,7 +107,7 @@
             TiThreadPerformOnMainThread(^{
                 [Gigya initWithAPIKey:[TiUtils stringValue:[args objectAtIndex:0]]];
                 [Gigya setSocializeDelegate:self];
-                NSLog(@"[INFO] initialized Gigya");
+                NSLog(@"[INFO] initialized Gigya with APIKey");
             }, YES);
         });
     }
