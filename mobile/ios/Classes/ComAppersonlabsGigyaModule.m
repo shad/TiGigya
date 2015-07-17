@@ -166,6 +166,35 @@
      }];
 }
 
+-(void)loginToProviderOver:(id)args {
+    ENSURE_UI_THREAD_1_ARG(args)
+
+    NSDictionary * dict;
+    ENSURE_ARG_AT_INDEX(dict, args, 0, NSDictionary)
+    
+    NSString * provider = [dict objectForKey:@"name"];
+    if (!provider) {
+        NSLog(@"[ERROR] missing provider name in loginToProvider");
+        return;
+    }
+    
+    KrollCallback * success = [dict objectForKey:@"success"];
+    KrollCallback * failure = [dict objectForKey:@"failure"];
+
+    UIViewController * topController = [[[TiApp app] controller] topContainerController];
+
+    [Gigya loginToProvider:provider parameters:dict over:topController completionHandler:^(GSUser *user, NSError *error) {
+        if (!error && success) {
+            NSDictionary * params = @{ @"user": [GSUserProxy dictionaryWithGSUser:user] };
+            [self _fireEventToListener:@"success" withObject:params listener:success thisObject:nil];
+        }
+        if (error && failure) {
+          NSDictionary * params = @{ @"code": [NSNumber numberWithInteger:error.code], @"error": error.description, @"userInfo":error.userInfo };
+            [self _fireEventToListener:@"failure" withObject:params listener:failure thisObject:nil];
+        }
+     }];
+}
+
 -(void)logout:(id)args {
     ENSURE_UI_THREAD_1_ARG(args)
 
