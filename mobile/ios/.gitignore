@@ -1,7 +1,0 @@
-tmp
-bin
-build
-*.zip
-.*
-gigya.xcodeproj/project.xcworkspace/
-gigya.xcodeproj/xcuserdata/

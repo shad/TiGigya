@@ -4,6 +4,13 @@ The **TiGigya** module provides an interface to the authentication functions and
 [REST API](http://developers.gigya.com/037_API_reference) of the [Gigya](http://gigya.com/)
 platform.
 
+## Quick Start
+
+### Get it [![gitTio](http://gitt.io/badge.png)](http://gitt.io/component/com.appersonlabs.gigya)
+Download the latest distribution ZIP-file and consult the [Titanium Documentation](http://docs.appcelerator.com/titanium/latest/#!/guide/Using_a_Module) on how install it, or simply use the [gitTio CLI](http://gitt.io/cli):
+
+`$ gittio install com.appersonlabs.gigya`
+
 ### iOS setup
 
 The Gigya module requires that the application have a custom URL scheme that matches the
@@ -34,17 +41,25 @@ the custom URL scheme, edit `tiapp.xml` and add a `<string>` element under the
 ### Android setup
 
 Android apps require an Activity defined for the various login screens.  Ensure that
-your `tiapp.xml` file contains that activity and the two permissions listed below:
+your `tiapp.xml` file contains the code below:
 
-    <android xmlns:android="http://schemas.android.com/apk/res/android">
-      <manifest>
-        <application>
-          <activity android:name="com.gigya.socialize.android.login.HostActivity" android:theme="@android:style/Theme.Translucent.NoTitleBar" />
-          <uses-permission android:name="android.permission.INTERNET"/>
-          <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-        </application>
-      </manifest>
-    </android>
+	<android xmlns:android="http://schemas.android.com/apk/res/android">
+		<manifest>
+			<application>
+				<activity
+					android:name="com.gigya.socialize.android.login.providers.WebLoginActivity"
+					android:theme="@android:style/Theme.Translucent.NoTitleBar"
+					android:launchMode="singleTask" android:allowTaskReparenting="true">
+					<intent-filter>
+						<action android:name="android.intent.action.VIEW" />
+						<category android:name="android.intent.category.DEFAULT" />
+						<category android:name="android.intent.category.BROWSABLE" />
+						<data android:scheme="YOUR_APP_ACTIVITY_NAME" android:host="gsapi" />
+					</intent-filter>
+				</activity>
+			</application>
+		</manifest>
+	</android>
 
 ## Loading the module
 
@@ -54,17 +69,13 @@ to get an API key.
 Load this module in your Titanium app as follows:
 
     var gigya = require('com.appersonlabs.gigya');
-    gigya.APIKey = 'your-gigya-api-key';
+    gigya.initialize('your-gigya-api-key-here','optionally-APIDomain');
 
-The `APIKey` property must be set before calling any methods.
+The `initialize` method must be called before calling any other methods.
 
 ## Module object
 
 ### Properties
-
-**APIKey**
-
-string, read/write.  The unique key obtained from Gigya that allows access to their remote API.
 
 **session**
 
@@ -74,6 +85,13 @@ string, read/write.  The unique key obtained from Gigya that allows access to th
 
 All arguments and optional dictionary values are optional unless otherwise stated.  Failure callbacks
 are passed a dictionary with an error code (`code`) and message (`error`).
+
+**initialize**(api_key,api_domain)
+
+* api_key (string, required): Your Gigya API key.
+* api_domain (string): Your Gigya partner API domain.
+
+Initializes the Gigya module for use.
 
 **showLoginProvidersDialog**(options)
 
@@ -91,7 +109,7 @@ with that provider.
 **loginToProvider**(options)
 
 * options (dictionary): login options. Supported keys are:  
-    * provider (string, required): the name of the provider to authenticate with.
+    * name (string, required): the name of the provider to authenticate with.
     * forceAuthentication (boolean): if set to true, the user will be prompted for authentication
       details, even if they are already logged in to the provider (Android only).
     * facebookExtraPermissions (string): a comma-delimited string of extended permissions to request
