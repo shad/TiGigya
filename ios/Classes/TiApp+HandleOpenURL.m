@@ -16,14 +16,24 @@
   sourceApplication:(NSString *)sourceApplication
          annotation:(id)annotation
 {
+    // THIS IS COPIED FROM TiApp!
     [launchOptions removeObjectForKey:UIApplicationLaunchOptionsURLKey];
     [launchOptions setObject:[url absoluteString] forKey:@"url"];
     [launchOptions removeObjectForKey:UIApplicationLaunchOptionsSourceApplicationKey];
-    [launchOptions setObject:sourceApplication forKey:@"source"];
+    if(sourceApplication == nil) {
+        [launchOptions setObject:[NSNull null] forKey:@"source"];
+    } else {
+        [launchOptions setObject:sourceApplication forKey:@"source"];
+    }
+    
     NSLog(@"[GIGYA] handleOpenURL %@",url);
-    return [Gigya handleOpenURL:url
-              sourceApplication:sourceApplication
-                     annotation:annotation];
+
+    BOOL wasHandled = [Gigya handleOpenURL:url
+                               application:application
+                         sourceApplication:sourceApplication
+                                annotation:annotation];
+    if (wasHandled)
+        return NO;
 }
 
 @end

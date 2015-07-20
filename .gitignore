@@ -1,3 +1,7 @@
 gigya.jar
 android/libs
 mobile/ios/build
+.DS_Store
+ios/build
+ios/tmp
+ios/deploy.sh

@@ -37,6 +37,8 @@
 		284577821B59BCEA00D0E80A /* GSSocializeDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 284577761B59BCEA00D0E80A /* GSSocializeDelegate.h */; };
 		284577831B59BCEA00D0E80A /* GSUser.h in Headers */ = {isa = PBXBuildFile; fileRef = 284577771B59BCEA00D0E80A /* GSUser.h */; };
 		284577841B59BCEA00D0E80A /* GSWebBridge.h in Headers */ = {isa = PBXBuildFile; fileRef = 284577781B59BCEA00D0E80A /* GSWebBridge.h */; };
+		284FB0AB1BC2E21600F194C5 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 284FB0A91BC2E21600F194C5 /* FBSDKCoreKit.framework */; settings = {ASSET_TAGS = (); }; };
+		284FB0AC1BC2E21600F194C5 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 284FB0AA1BC2E21600F194C5 /* FBSDKLoginKit.framework */; settings = {ASSET_TAGS = (); }; };
 		7425FE171A784A270041D615 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7425FE161A784A270041D615 /* Social.framework */; };
 		AA747D9F0F9514B9006C5449 /* ComAppersonlabsGigya_Prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = AA747D9E0F9514B9006C5449 /* ComAppersonlabsGigya_Prefix.pch */; };
 		AACBBE4A0F95108600F1A2B1 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AACBBE490F95108600F1A2B1 /* Foundation.framework */; };
@@ -79,6 +81,8 @@
 		284577761B59BCEA00D0E80A /* GSSocializeDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GSSocializeDelegate.h; path = GigyaSDK.framework/Headers/GSSocializeDelegate.h; sourceTree = "<group>"; };
 		284577771B59BCEA00D0E80A /* GSUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GSUser.h; path = GigyaSDK.framework/Headers/GSUser.h; sourceTree = "<group>"; };
 		284577781B59BCEA00D0E80A /* GSWebBridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GSWebBridge.h; path = GigyaSDK.framework/Headers/GSWebBridge.h; sourceTree = "<group>"; };
+		284FB0A91BC2E21600F194C5 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKCoreKit.framework; path = ../../../Documents/FacebookSDK/FBSDKCoreKit.framework; sourceTree = "<group>"; };
+		284FB0AA1BC2E21600F194C5 /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKLoginKit.framework; path = ../../../Documents/FacebookSDK/FBSDKLoginKit.framework; sourceTree = "<group>"; };
 		7425FE161A784A270041D615 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
 		AA747D9E0F9514B9006C5449 /* ComAppersonlabsGigya_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ComAppersonlabsGigya_Prefix.pch; sourceTree = SOURCE_ROOT; };
 		AACBBE490F95108600F1A2B1 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -101,6 +105,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				2845776A1B59BA6A00D0E80A /* GigyaSDK.framework in Frameworks */,
+				284FB0AB1BC2E21600F194C5 /* FBSDKCoreKit.framework in Frameworks */,
+				284FB0AC1BC2E21600F194C5 /* FBSDKLoginKit.framework in Frameworks */,
 				7425FE171A784A270041D615 /* Social.framework in Frameworks */,
 				AACBBE4A0F95108600F1A2B1 /* Foundation.framework in Frameworks */,
 			);
@@ -132,6 +138,8 @@
 		0867D69AFE84028FC02AAC07 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				284FB0A91BC2E21600F194C5 /* FBSDKCoreKit.framework */,
+				284FB0AA1BC2E21600F194C5 /* FBSDKLoginKit.framework */,
 				284577691B59BA6A00D0E80A /* GigyaSDK.framework */,
 				7425FE161A784A270041D615 /* Social.framework */,
 				AACBBE490F95108600F1A2B1 /* Foundation.framework */,
@@ -314,10 +322,9 @@
 				DSTROOT = /tmp/ComAppersonlabsGigya.dst;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					/Users/paul/Dropbox/apperson/gigya/mobile/ios/frameworks,
-					/Users/mattapperson/Development/TiGigya/mobile/ios,
 					"$(PROJECT_DIR)/platform",
 					"$(PROJECT_DIR)",
+					"~/Documents/FacebookSDK",
 				);
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -360,10 +367,9 @@
 				DSTROOT = /tmp/ComAppersonlabsGigya.dst;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					/Users/paul/Dropbox/apperson/gigya/mobile/ios/frameworks,
-					/Users/mattapperson/Development/TiGigya/mobile/ios,
 					"$(PROJECT_DIR)/platform",
 					"$(PROJECT_DIR)",
+					"~/Documents/FacebookSDK",
 				);
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_MODEL_TUNING = G5;

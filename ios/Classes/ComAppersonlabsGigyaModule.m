@@ -11,6 +11,8 @@
 #import "TiApp.h"
 
 #import "Gigya.h"
+#import <FBSDKCoreKit/FBSDKCoreKit.h>
+#import <FBSDKLoginKit/FBSDKLoginKit.h>
 
 #import "GSUserProxy.h"
 #import "GSSessionProxy.h"
@@ -33,21 +35,44 @@
 	return @"com.appersonlabs.gigya";
 }
 
+#pragma mark Application Lifecycle Overrides
 // Doing this at load, this method is only called once per class
 +(void)load
 {
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationDidFinishLaunching:) name:UIApplicationDidFinishLaunchingNotification object:nil];
+    static dispatch_once_t onceLoadToken;
+    dispatch_once(&onceLoadToken, ^{
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationDidFinishLaunching:) name:UIApplicationDidFinishLaunchingNotification object:nil];
+
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationDidBecomeActive:) name:UIApplicationDidBecomeActiveNotification object:nil];
+        
+    });
 }
+
 +(void)applicationDidFinishLaunching:(NSNotification*)note
 {
     NSDictionary *launchOptions = [note userInfo];
     UIApplication *application = (UIApplication*)[note object];
 
-    // TODO: apikey and domain need to be stored in configuration somewhere I think...
-    
-    //[Gigya initWithAPIKey:@"PUT-YOUR-APIKEY-HERE" application:application launchOptions:launchOptions APIDomain:@"eu1.gigya.com"];
-        
-    [Gigya initWithAPIKey:@"3_Vstt7Zpmd0yMcuvT3s56RZuF1CU7IkBgcni4jzx28fjUmb0QQP2TLqXeOwNoQmnS" application:application launchOptions:launchOptions];
+    // Load Gigya APIKey and Domian from Info.plist
+    NSString *apiKey = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"TiGigyaAPIKey"];
+    NSString *domain = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"TiGigyaDomain"];
+
+    NSLog(@"[INFO] [TiGigya] Init w/ key:%@  domain:%@", apiKey, domain);
+
+    if (domain)
+    {
+        [Gigya initWithAPIKey:apiKey application:application launchOptions:launchOptions APIDomain:domain];
+    }
+    else
+    {
+        [Gigya initWithAPIKey:apiKey application:application launchOptions:launchOptions];
+    }
+}
++(void)applicationDidBecomeActive:(NSNotification*)note
+{
+    NSLog(@"[INFO] [TiGigya] Gigya#handleDidBecomeActive");
+    [Gigya handleDidBecomeActive];
 }
 
 
@@ -55,10 +80,6 @@
 
 -(id)init
 {
-    if (self = [super init])
-    {
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationDidBecomeActive:) name:UIApplicationDidBecomeActiveNotification object:nil];
-    }
     return self;
 }
 
@@ -67,7 +88,7 @@
 	
     self.pendingRequests = [NSMutableDictionary dictionary];
     
-	NSLog(@"[INFO] %@ loaded",self);
+	NSLog(@"[INFO] [TiGigya] %@ loaded",self);
 }
 
 -(void)shutdown:(id)sender {
@@ -76,13 +97,7 @@
 
 -(void)dealloc
 {
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationDidBecomeActiveNotification object:nil];
     [super dealloc];
-}
-
--(void)applicationDidBecomeActive:(NSNotification*)note
-{
-    [Gigya handleDidBecomeActive];
 }
 
 
@@ -107,29 +122,14 @@
 #pragma mark Authentication
 
 - (void)initialize:(NSArray *) args {
-    // [args objectAtIndex:1]
-    
-    
     // Gigya docs say to only call this once
     static dispatch_once_t onceToken;
-    
-    if ([args objectAtIndex:1]) {
-        dispatch_once(&onceToken, ^{
-            TiThreadPerformOnMainThread(^{
-                //[Gigya initWithAPIKey:[TiUtils stringValue:[args objectAtIndex:0]] APIDomain:[TiUtils stringValue:[args objectAtIndex:1]]];
-                [Gigya setSocializeDelegate:self];
-                NSLog(@"[INFO] initialized Gigya with APIKey and APIDomain");
-            }, YES);
-        });
-    } else {
-        dispatch_once(&onceToken, ^{
-            TiThreadPerformOnMainThread(^{
-                //[Gigya initWithAPIKey:[TiUtils stringValue:[args objectAtIndex:0]]];
-                [Gigya setSocializeDelegate:self];
-                NSLog(@"[INFO] initialized Gigya with APIKey");
-            }, YES);
-        });
-    }
+    dispatch_once(&onceToken, ^{
+        TiThreadPerformOnMainThread(^{
+            [Gigya setSocializeDelegate:self];
+            NSLog(@"[INFO] [TiGigya] Gigya#setSocializeDelegate");
+        }, YES);
+    });
 }
 
 - (id)session {
@@ -178,7 +178,7 @@
     
     NSString * provider = [dict objectForKey:@"name"];
     if (!provider) {
-        NSLog(@"[ERROR] missing provider name in loginToProvider");
+        NSLog(@"[ERROR] [TiGigya] missing provider name in loginToProvider");
         return;
     }
     
@@ -205,28 +205,36 @@
     
     NSString * provider = [dict objectForKey:@"name"];
     if (!provider) {
-        NSLog(@"[ERROR] missing provider name in loginToProvider");
+        NSLog(@"[ERROR] [TiGigya] missing provider name in loginToProvider");
         return;
     }
     
     KrollCallback * success = [dict objectForKey:@"success"];
     KrollCallback * failure = [dict objectForKey:@"failure"];
+    
+    
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    [params setObject:[NSNumber numberWithInt:FBSDKLoginBehaviorNative] forKey:@"facebookLoginBehavior"];
 
+    
     UIViewController * topController = [[[TiApp app] controller] topContainerController];
 
-    NSLog(@"[INFO] Calling loginToProvider:parameters:over:completionHandler");
-    [Gigya loginToProvider:provider parameters:dict over:topController completionHandler:^(GSUser *user, NSError *error) {
-        NSLog(@"[INFO] in completion handler loginToProvider:parameters:over:completionHandler");
-        
-        if (!error && success) {
-            NSDictionary * params = @{ @"user": [GSUserProxy dictionaryWithGSUser:user] };
-            [self _fireEventToListener:@"success" withObject:params listener:success thisObject:nil];
-        }
-        if (error && failure) {
-          NSDictionary * params = @{ @"code": [NSNumber numberWithInteger:error.code], @"error": error.description, @"userInfo":error.userInfo };
-            [self _fireEventToListener:@"failure" withObject:params listener:failure thisObject:nil];
-        }
-     }];
+    NSLog(@"[INFO] [TiGigya] Calling loginToProvider:parameters:over:completionHandler params:nil");
+    [Gigya loginToProvider:provider
+                parameters:params
+                      over:topController
+         completionHandler:^(GSUser *user, NSError *error) {
+             NSLog(@"[INFO] [TiGigya] in completion handler loginToProvider:parameters:over:completionHandler");
+             
+             if (!error && success) {
+                 NSDictionary * params = @{ @"user": [GSUserProxy dictionaryWithGSUser:user] };
+                 [self _fireEventToListener:@"success" withObject:params listener:success thisObject:nil];
+             }
+             if (error && failure) {
+                 NSDictionary * params = @{ @"code": [NSNumber numberWithInteger:error.code], @"error": error.description, @"userInfo":error.userInfo };
+                 [self _fireEventToListener:@"failure" withObject:params listener:failure thisObject:nil];
+             }
+         }];
 }
 
 -(void)logout:(id)args {
