@@ -30,4 +30,4 @@ MYMODID=com.appersonlabs.gigya
 MYMODVERSION=1.0.0
 
 FRAMEWORK_SEARCH_PATHS=$(SRCROOT)/../../modules/iphone/$(MYMODID)/$(MYMODVERSION)/platform /Library/Application\ Support/Titanium/modules/iphone/$(MYMODID)/$(MYMODVERSION)/platform ~/Library/Application\ Support/Titanium/modules/iphone/$(MYMODID)/$(MYMODVERSION)/platform
-OTHER_LDFLAGS=$(inherited) -framework GigyaSDK  -framework CoreData
+OTHER_LDFLAGS=$(inherited) -framework GigyaSDK  -framework CoreData -framework Social

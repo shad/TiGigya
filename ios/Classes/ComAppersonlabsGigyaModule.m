@@ -33,6 +33,24 @@
 	return @"com.appersonlabs.gigya";
 }
 
+// Doing this at load, this method is only called once per class
++(void)load
+{
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationDidFinishLaunching:) name:UIApplicationDidFinishLaunchingNotification object:nil];
+}
++(void)applicationDidFinishLaunching:(NSNotification*)note
+{
+    NSDictionary *launchOptions = [note userInfo];
+    UIApplication *application = (UIApplication*)[note object];
+
+    // TODO: apikey and domain need to be stored in configuration somewhere I think...
+    
+    //[Gigya initWithAPIKey:@"PUT-YOUR-APIKEY-HERE" application:application launchOptions:launchOptions APIDomain:@"eu1.gigya.com"];
+        
+    [Gigya initWithAPIKey:@"3_Vstt7Zpmd0yMcuvT3s56RZuF1CU7IkBgcni4jzx28fjUmb0QQP2TLqXeOwNoQmnS" application:application launchOptions:launchOptions];
+}
+
+
 #pragma mark Lifecycle
 
 -(id)init
@@ -67,6 +85,7 @@
     [Gigya handleDidBecomeActive];
 }
 
+
 #pragma mark -
 #pragma mark GSSocalizeDelegate
 
@@ -97,7 +116,7 @@
     if ([args objectAtIndex:1]) {
         dispatch_once(&onceToken, ^{
             TiThreadPerformOnMainThread(^{
-                [Gigya initWithAPIKey:[TiUtils stringValue:[args objectAtIndex:0]] APIDomain:[TiUtils stringValue:[args objectAtIndex:1]]];
+                //[Gigya initWithAPIKey:[TiUtils stringValue:[args objectAtIndex:0]] APIDomain:[TiUtils stringValue:[args objectAtIndex:1]]];
                 [Gigya setSocializeDelegate:self];
                 NSLog(@"[INFO] initialized Gigya with APIKey and APIDomain");
             }, YES);
@@ -105,7 +124,7 @@
     } else {
         dispatch_once(&onceToken, ^{
             TiThreadPerformOnMainThread(^{
-                [Gigya initWithAPIKey:[TiUtils stringValue:[args objectAtIndex:0]]];
+                //[Gigya initWithAPIKey:[TiUtils stringValue:[args objectAtIndex:0]]];
                 [Gigya setSocializeDelegate:self];
                 NSLog(@"[INFO] initialized Gigya with APIKey");
             }, YES);
@@ -195,7 +214,10 @@
 
     UIViewController * topController = [[[TiApp app] controller] topContainerController];
 
+    NSLog(@"[INFO] Calling loginToProvider:parameters:over:completionHandler");
     [Gigya loginToProvider:provider parameters:dict over:topController completionHandler:^(GSUser *user, NSError *error) {
+        NSLog(@"[INFO] in completion handler loginToProvider:parameters:over:completionHandler");
+        
         if (!error && success) {
             NSDictionary * params = @{ @"user": [GSUserProxy dictionaryWithGSUser:user] };
             [self _fireEventToListener:@"success" withObject:params listener:success thisObject:nil];

@@ -1,11 +1,3 @@
-//
-//  GSWebBridge.h
-//  GigyaSDK
-//
-//  Created by Ran on 12/5/13.
-//  Copyright (c) 2013 Gigya. All rights reserved.
-//
-
 #import "Gigya.h"
 
 @class GSWebBridge;
@@ -23,7 +15,7 @@
  @param method A string specifying the login type - either `"login"` or `"addConnection"`.
  @param parameters A dictionary of the login request parameters.
  */
-- (void)webView:(UIWebView *)webView startedLoginForMethod:(NSString *)method parameters:(NSDictionary *)parameters;
+- (void)webView:(id)webView startedLoginForMethod:(NSString *)method parameters:(NSDictionary *)parameters;
 
 /**
  Invoked after the login process is finished.
@@ -31,16 +23,25 @@
  @param webView A registered web view that has initiated the login.
  @param response A response object with the login result.
  */
-- (void)webView:(UIWebView *)webView finishedLoginWithResponse:(GSResponse *)response;
+- (void)webView:(id)webView finishedLoginWithResponse:(GSResponse *)response;
 
 /**
-  Invoked when a Gigya JavaScript SDK plugin fires a [custom event](http://developers.gigya.com/010_Developer_Guide/84_Using_the_Client_API/50_Events#Component_events) inside the web view. (For example - commentUI's [commentSubmitted](http://developers.gigya.com/020_Client_API/030_Comments/comments.showCommentsUI#onCommentSubmitted_Event_Data))
+  Invoked when a Gigya JavaScript SDK plugin fires a <a target="_blank" href="http://developers.gigya.com/display/GD/Events#Events-PluginEvents">custom event</a> inside the web view. (For example - commentUI's <a target="_blank" href="http://developers.gigya.com/display/GD/comments.showCommentsUI+JS#comments.showCommentsUIJS-onCommentSubmittedEventData">commentSubmitted</a>)
  
  @param webView A registered web view that contains the origin plugin.
  @param event The event object.
  @param containerID The ID of the HTML element that contains the plugin.
  */
-- (void)webView:(UIWebView *)webView receivedPluginEvent:(NSDictionary *)event fromPluginInContainer:(NSString *)containerID;
+- (void)webView:(id)webView receivedPluginEvent:(NSDictionary *)event fromPluginInContainer:(NSString *)containerID;
+
+/**
+ Invoked when a Gigya JavaScript SDK writes to log
+ 
+ @param webView A registered web view that contains the log entry.
+ @param logType The log entry type. possible values: debug, info, warn, error.
+ @param logInfo The log entry info object. possible values: debug, info, warn, error.
+ */
+- (void)webView:(id)webView receivedJsLog:(NSString *)logType logInfo:(NSDictionary *)logInfo;
 
 @end
 
@@ -83,14 +84,24 @@
  @param delegate A delegate to be notified with `GSWebBridge` events.
  @see GSWebBridgeDelegate
  */
-+ (void)registerWebView:(UIWebView *)webView delegate:(id<GSWebBridgeDelegate>)delegate;
++ (void)registerWebView:(id)webView delegate:(id<GSWebBridgeDelegate>)delegate;
+
+/**
+ Registers a web view to the web bridge. This method should be called before calling `UIWebView`'s `loadRequest:`.
+ 
+ @param webView A web view.
+ @param delegate A delegate to be notified with `GSWebBridge` events.
+ @param settings A settings object that will be passed to the Javascript SDK.
+ @see GSWebBridgeDelegate
+ */
++ (void)registerWebView:(id)webView delegate:(id<GSWebBridgeDelegate>)delegate settings:(NSDictionary *)settings;
 
 /**
  Unregisters a web view from the web bridge. This method must be called before the web view has been deallocated.
  
  @param webView A web view that has already registered using `registerWebView:delegate:`.
  */
-+ (void)unregisterWebView:(UIWebView *)webView;
++ (void)unregisterWebView:(id)webView;
 
 /** @name Routing Requests to the Web Bridge */
 
@@ -99,7 +110,7 @@
  
  @param webView A web view that has already registered using `registerWebView:delegate:`.
  */
-+ (void)webViewDidStartLoad:(UIWebView *)webView;
++ (void)webViewDidStartLoad:(id)webView;
 
 /**
  Routes a request from a registered web view. Should be called in `UIWebViewDelegate`'s `webView:shouldStartLoadWithRequest:navigationType:`.
@@ -108,7 +119,7 @@
  @param webView A web view that has already registered using `registerWebView:delegate:`.
  @return A Boolean value indicating whether the web bridge has handled the request.
  */
-+ (BOOL)handleRequest:(NSURLRequest *)request webView:(UIWebView *)webView;
++ (BOOL)handleRequest:(NSURLRequest *)request webView:(id)webView;
 
 
 @end

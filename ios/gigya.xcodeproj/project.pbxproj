@@ -24,17 +24,22 @@
 /* Begin PBXBuildFile section */
 		24DD6CF91134B3F500162E58 /* ComAppersonlabsGigyaModule.h in Headers */ = {isa = PBXBuildFile; fileRef = 24DD6CF71134B3F500162E58 /* ComAppersonlabsGigyaModule.h */; };
 		24DD6CFA1134B3F500162E58 /* ComAppersonlabsGigyaModule.m in Sources */ = {isa = PBXBuildFile; fileRef = 24DD6CF81134B3F500162E58 /* ComAppersonlabsGigyaModule.m */; };
+		2845776A1B59BA6A00D0E80A /* GigyaSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 284577691B59BA6A00D0E80A /* GigyaSDK.framework */; };
+		284577791B59BCEA00D0E80A /* Gigya.h in Headers */ = {isa = PBXBuildFile; fileRef = 2845776D1B59BCEA00D0E80A /* Gigya.h */; };
+		2845777A1B59BCEA00D0E80A /* GSAccount.h in Headers */ = {isa = PBXBuildFile; fileRef = 2845776E1B59BCEA00D0E80A /* GSAccount.h */; };
+		2845777B1B59BCEA00D0E80A /* GSAccountsDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 2845776F1B59BCEA00D0E80A /* GSAccountsDelegate.h */; };
+		2845777C1B59BCEA00D0E80A /* GSObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 284577701B59BCEA00D0E80A /* GSObject.h */; };
+		2845777D1B59BCEA00D0E80A /* GSPluginView.h in Headers */ = {isa = PBXBuildFile; fileRef = 284577711B59BCEA00D0E80A /* GSPluginView.h */; };
+		2845777E1B59BCEA00D0E80A /* GSRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 284577721B59BCEA00D0E80A /* GSRequest.h */; };
+		2845777F1B59BCEA00D0E80A /* GSResponse.h in Headers */ = {isa = PBXBuildFile; fileRef = 284577731B59BCEA00D0E80A /* GSResponse.h */; };
+		284577801B59BCEA00D0E80A /* GSSession.h in Headers */ = {isa = PBXBuildFile; fileRef = 284577741B59BCEA00D0E80A /* GSSession.h */; };
+		284577811B59BCEA00D0E80A /* GSSessionDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 284577751B59BCEA00D0E80A /* GSSessionDelegate.h */; };
+		284577821B59BCEA00D0E80A /* GSSocializeDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 284577761B59BCEA00D0E80A /* GSSocializeDelegate.h */; };
+		284577831B59BCEA00D0E80A /* GSUser.h in Headers */ = {isa = PBXBuildFile; fileRef = 284577771B59BCEA00D0E80A /* GSUser.h */; };
+		284577841B59BCEA00D0E80A /* GSWebBridge.h in Headers */ = {isa = PBXBuildFile; fileRef = 284577781B59BCEA00D0E80A /* GSWebBridge.h */; };
 		7425FE171A784A270041D615 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7425FE161A784A270041D615 /* Social.framework */; };
 		AA747D9F0F9514B9006C5449 /* ComAppersonlabsGigya_Prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = AA747D9E0F9514B9006C5449 /* ComAppersonlabsGigya_Prefix.pch */; };
 		AACBBE4A0F95108600F1A2B1 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AACBBE490F95108600F1A2B1 /* Foundation.framework */; };
-		D921499519F54B930018320A /* GigyaSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D921499419F54B930018320A /* GigyaSDK.framework */; };
-		DA150E7B183E893B00D2CCD0 /* Gigya.h in Headers */ = {isa = PBXBuildFile; fileRef = DA150E74183E893B00D2CCD0 /* Gigya.h */; };
-		DA150E7C183E893B00D2CCD0 /* GSObject.h in Headers */ = {isa = PBXBuildFile; fileRef = DA150E75183E893B00D2CCD0 /* GSObject.h */; };
-		DA150E7D183E893B00D2CCD0 /* GSRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = DA150E76183E893B00D2CCD0 /* GSRequest.h */; };
-		DA150E7E183E893B00D2CCD0 /* GSResponse.h in Headers */ = {isa = PBXBuildFile; fileRef = DA150E77183E893B00D2CCD0 /* GSResponse.h */; };
-		DA150E7F183E893B00D2CCD0 /* GSSession.h in Headers */ = {isa = PBXBuildFile; fileRef = DA150E78183E893B00D2CCD0 /* GSSession.h */; };
-		DA150E80183E893B00D2CCD0 /* GSSessionDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = DA150E79183E893B00D2CCD0 /* GSSessionDelegate.h */; };
-		DA150E81183E893B00D2CCD0 /* GSUser.h in Headers */ = {isa = PBXBuildFile; fileRef = DA150E7A183E893B00D2CCD0 /* GSUser.h */; };
 		DA2434F7184BBE46004E041C /* GSRequestProxy.h in Headers */ = {isa = PBXBuildFile; fileRef = DA2434F5184BBE46004E041C /* GSRequestProxy.h */; };
 		DA2434F8184BBE46004E041C /* GSRequestProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = DA2434F6184BBE46004E041C /* GSRequestProxy.m */; };
 		DA39CB811842FBE600F64FF9 /* TiApp+HandleOpenURL.h in Headers */ = {isa = PBXBuildFile; fileRef = DA39CB7F1842FBE600F64FF9 /* TiApp+HandleOpenURL.h */; };
@@ -61,19 +66,23 @@
 		24DD6CF71134B3F500162E58 /* ComAppersonlabsGigyaModule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ComAppersonlabsGigyaModule.h; path = Classes/ComAppersonlabsGigyaModule.h; sourceTree = "<group>"; };
 		24DD6CF81134B3F500162E58 /* ComAppersonlabsGigyaModule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ComAppersonlabsGigyaModule.m; path = Classes/ComAppersonlabsGigyaModule.m; sourceTree = "<group>"; };
 		24DD6D1B1134B66800162E58 /* titanium.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = titanium.xcconfig; sourceTree = "<group>"; };
+		284577691B59BA6A00D0E80A /* GigyaSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GigyaSDK.framework; sourceTree = "<group>"; };
+		2845776D1B59BCEA00D0E80A /* Gigya.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Gigya.h; path = GigyaSDK.framework/Headers/Gigya.h; sourceTree = "<group>"; };
+		2845776E1B59BCEA00D0E80A /* GSAccount.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GSAccount.h; path = GigyaSDK.framework/Headers/GSAccount.h; sourceTree = "<group>"; };
+		2845776F1B59BCEA00D0E80A /* GSAccountsDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GSAccountsDelegate.h; path = GigyaSDK.framework/Headers/GSAccountsDelegate.h; sourceTree = "<group>"; };
+		284577701B59BCEA00D0E80A /* GSObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GSObject.h; path = GigyaSDK.framework/Headers/GSObject.h; sourceTree = "<group>"; };
+		284577711B59BCEA00D0E80A /* GSPluginView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GSPluginView.h; path = GigyaSDK.framework/Headers/GSPluginView.h; sourceTree = "<group>"; };
+		284577721B59BCEA00D0E80A /* GSRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GSRequest.h; path = GigyaSDK.framework/Headers/GSRequest.h; sourceTree = "<group>"; };
+		284577731B59BCEA00D0E80A /* GSResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GSResponse.h; path = GigyaSDK.framework/Headers/GSResponse.h; sourceTree = "<group>"; };
+		284577741B59BCEA00D0E80A /* GSSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GSSession.h; path = GigyaSDK.framework/Headers/GSSession.h; sourceTree = "<group>"; };
+		284577751B59BCEA00D0E80A /* GSSessionDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GSSessionDelegate.h; path = GigyaSDK.framework/Headers/GSSessionDelegate.h; sourceTree = "<group>"; };
+		284577761B59BCEA00D0E80A /* GSSocializeDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GSSocializeDelegate.h; path = GigyaSDK.framework/Headers/GSSocializeDelegate.h; sourceTree = "<group>"; };
+		284577771B59BCEA00D0E80A /* GSUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GSUser.h; path = GigyaSDK.framework/Headers/GSUser.h; sourceTree = "<group>"; };
+		284577781B59BCEA00D0E80A /* GSWebBridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GSWebBridge.h; path = GigyaSDK.framework/Headers/GSWebBridge.h; sourceTree = "<group>"; };
 		7425FE161A784A270041D615 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
 		AA747D9E0F9514B9006C5449 /* ComAppersonlabsGigya_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ComAppersonlabsGigya_Prefix.pch; sourceTree = SOURCE_ROOT; };
 		AACBBE490F95108600F1A2B1 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		D2AAC07E0554694100DB518D /* libComAppersonlabsGigya.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libComAppersonlabsGigya.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		D921499419F54B930018320A /* GigyaSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GigyaSDK.framework; path = platform/GigyaSDK.framework; sourceTree = "<group>"; };
-		DA150E74183E893B00D2CCD0 /* Gigya.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Gigya.h; sourceTree = "<group>"; };
-		DA150E75183E893B00D2CCD0 /* GSObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GSObject.h; sourceTree = "<group>"; };
-		DA150E76183E893B00D2CCD0 /* GSRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GSRequest.h; sourceTree = "<group>"; };
-		DA150E77183E893B00D2CCD0 /* GSResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GSResponse.h; sourceTree = "<group>"; };
-		DA150E78183E893B00D2CCD0 /* GSSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GSSession.h; sourceTree = "<group>"; };
-		DA150E79183E893B00D2CCD0 /* GSSessionDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GSSessionDelegate.h; sourceTree = "<group>"; };
-		DA150E7A183E893B00D2CCD0 /* GSUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GSUser.h; sourceTree = "<group>"; };
-		DA150E82183E8DA900D2CCD0 /* libGigyaSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libGigyaSDK.a; path = lib/libGigyaSDK.a; sourceTree = "<group>"; };
 		DA2434F5184BBE46004E041C /* GSRequestProxy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GSRequestProxy.h; path = Classes/GSRequestProxy.h; sourceTree = "<group>"; };
 		DA2434F6184BBE46004E041C /* GSRequestProxy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GSRequestProxy.m; path = Classes/GSRequestProxy.m; sourceTree = "<group>"; };
 		DA39CB7F1842FBE600F64FF9 /* TiApp+HandleOpenURL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "TiApp+HandleOpenURL.h"; path = "Classes/TiApp+HandleOpenURL.h"; sourceTree = "<group>"; };
@@ -91,8 +100,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2845776A1B59BA6A00D0E80A /* GigyaSDK.framework in Frameworks */,
 				7425FE171A784A270041D615 /* Social.framework in Frameworks */,
-				D921499519F54B930018320A /* GigyaSDK.framework in Frameworks */,
 				AACBBE4A0F95108600F1A2B1 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -111,7 +120,7 @@
 		0867D691FE84028FC02AAC07 /* gigya */ = {
 			isa = PBXGroup;
 			children = (
-				DA150E73183E893B00D2CCD0 /* headers */,
+				2845776C1B59BCDD00D0E80A /* headers */,
 				08FB77AEFE84172EC02AAC07 /* Classes */,
 				32C88DFF0371C24200C91783 /* Other Sources */,
 				0867D69AFE84028FC02AAC07 /* Frameworks */,
@@ -123,9 +132,8 @@
 		0867D69AFE84028FC02AAC07 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				284577691B59BA6A00D0E80A /* GigyaSDK.framework */,
 				7425FE161A784A270041D615 /* Social.framework */,
-				D921499419F54B930018320A /* GigyaSDK.framework */,
-				DA150E82183E8DA900D2CCD0 /* libGigyaSDK.a */,
 				AACBBE490F95108600F1A2B1 /* Foundation.framework */,
 			);
 			name = Frameworks;
@@ -150,6 +158,25 @@
 			name = Classes;
 			sourceTree = "<group>";
 		};
+		2845776C1B59BCDD00D0E80A /* headers */ = {
+			isa = PBXGroup;
+			children = (
+				2845776D1B59BCEA00D0E80A /* Gigya.h */,
+				2845776E1B59BCEA00D0E80A /* GSAccount.h */,
+				2845776F1B59BCEA00D0E80A /* GSAccountsDelegate.h */,
+				284577701B59BCEA00D0E80A /* GSObject.h */,
+				284577711B59BCEA00D0E80A /* GSPluginView.h */,
+				284577721B59BCEA00D0E80A /* GSRequest.h */,
+				284577731B59BCEA00D0E80A /* GSResponse.h */,
+				284577741B59BCEA00D0E80A /* GSSession.h */,
+				284577751B59BCEA00D0E80A /* GSSessionDelegate.h */,
+				284577761B59BCEA00D0E80A /* GSSocializeDelegate.h */,
+				284577771B59BCEA00D0E80A /* GSUser.h */,
+				284577781B59BCEA00D0E80A /* GSWebBridge.h */,
+			);
+			name = headers;
+			sourceTree = "<group>";
+		};
 		32C88DFF0371C24200C91783 /* Other Sources */ = {
 			isa = PBXGroup;
 			children = (
@@ -159,20 +186,6 @@
 			name = "Other Sources";
 			sourceTree = "<group>";
 		};
-		DA150E73183E893B00D2CCD0 /* headers */ = {
-			isa = PBXGroup;
-			children = (
-				DA150E74183E893B00D2CCD0 /* Gigya.h */,
-				DA150E75183E893B00D2CCD0 /* GSObject.h */,
-				DA150E76183E893B00D2CCD0 /* GSRequest.h */,
-				DA150E77183E893B00D2CCD0 /* GSResponse.h */,
-				DA150E78183E893B00D2CCD0 /* GSSession.h */,
-				DA150E79183E893B00D2CCD0 /* GSSessionDelegate.h */,
-				DA150E7A183E893B00D2CCD0 /* GSUser.h */,
-			);
-			path = headers;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -180,19 +193,24 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2845777A1B59BCEA00D0E80A /* GSAccount.h in Headers */,
+				2845777F1B59BCEA00D0E80A /* GSResponse.h in Headers */,
+				284577811B59BCEA00D0E80A /* GSSessionDelegate.h in Headers */,
+				2845777E1B59BCEA00D0E80A /* GSRequest.h in Headers */,
+				2845777B1B59BCEA00D0E80A /* GSAccountsDelegate.h in Headers */,
 				DAD4F44C1843BB80004F1A7C /* GSResponseProxy.h in Headers */,
-				DA150E81183E893B00D2CCD0 /* GSUser.h in Headers */,
-				DA150E7B183E893B00D2CCD0 /* Gigya.h in Headers */,
 				DAD4F4521843DA74004F1A7C /* GSSessionProxy.h in Headers */,
-				DA150E7C183E893B00D2CCD0 /* GSObject.h in Headers */,
-				DA150E80183E893B00D2CCD0 /* GSSessionDelegate.h in Headers */,
+				2845777D1B59BCEA00D0E80A /* GSPluginView.h in Headers */,
 				DAD4F4541843DA74004F1A7C /* GSUserProxy.h in Headers */,
-				DA150E7F183E893B00D2CCD0 /* GSSession.h in Headers */,
+				284577831B59BCEA00D0E80A /* GSUser.h in Headers */,
+				284577841B59BCEA00D0E80A /* GSWebBridge.h in Headers */,
 				AA747D9F0F9514B9006C5449 /* ComAppersonlabsGigya_Prefix.pch in Headers */,
-				DA150E7E183E893B00D2CCD0 /* GSResponse.h in Headers */,
 				DA39CB811842FBE600F64FF9 /* TiApp+HandleOpenURL.h in Headers */,
+				284577821B59BCEA00D0E80A /* GSSocializeDelegate.h in Headers */,
+				2845777C1B59BCEA00D0E80A /* GSObject.h in Headers */,
 				DA2434F7184BBE46004E041C /* GSRequestProxy.h in Headers */,
-				DA150E7D183E893B00D2CCD0 /* GSRequest.h in Headers */,
+				284577791B59BCEA00D0E80A /* Gigya.h in Headers */,
+				284577801B59BCEA00D0E80A /* GSSession.h in Headers */,
 				24DD6CF91134B3F500162E58 /* ComAppersonlabsGigyaModule.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -299,6 +317,7 @@
 					/Users/paul/Dropbox/apperson/gigya/mobile/ios/frameworks,
 					/Users/mattapperson/Development/TiGigya/mobile/ios,
 					"$(PROJECT_DIR)/platform",
+					"$(PROJECT_DIR)",
 				);
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -344,6 +363,7 @@
 					/Users/paul/Dropbox/apperson/gigya/mobile/ios/frameworks,
 					/Users/mattapperson/Development/TiGigya/mobile/ios,
 					"$(PROJECT_DIR)/platform",
+					"$(PROJECT_DIR)",
 				);
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_MODEL_TUNING = G5;
